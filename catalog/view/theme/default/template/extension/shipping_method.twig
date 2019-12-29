@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+	<div class="panel-heading"><i class="fa fa-truck" aria-hidden="true"></i> {{ text_delivery_method_title }}</div>
+</div>
+{% if error_warning %}
+<div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
+{% endif %}
+	{% if shipping_methods %}
+		{% for shipping_method in shipping_methods %}
+			{% if not shipping_method.error %}
+				{% for quote in shipping_method.quote %}
+				
+				    <label class="col-sm-12">
+						{% if quote.code == code or not code %}
+						{% set code = quote.code %}
+						<input class="radio2 pull-left" type="radio" name="shipping_method" value="{{ quote.code }}" checked="checked" />
+						{% else %}
+						<input class="radio2 pull-left" type="radio" name="shipping_method" value="{{ quote.code }}" />
+						{% endif %} &nbsp; &nbsp;
+						{% if shipping_method.image %}
+						<img class="pull-left" src="{{ shipping_method.image }}"/>
+						{% endif %}
+						{% if tmdqc_shipping_label %}
+						<span class="">&nbsp; &nbsp; {{ shipping_method.title }}</span> 
+						{% endif %}
+						<span class="pull-right">+{{ quote.text }}</span>
+					</label>
+				
+				{% endfor %}
+                {% else %}
+			<div class="alert alert-danger">{{ shipping_method.error }}</div>
+			{% endif %}
+            {% endfor %}
+            {% endif %}
+	<div class="padd {{ tmdqc_shipping_comment }}">
+		
+			<label class="control-label col-sm-12">{{ text_comments }}</label>
+			<textarea name="comment" rows="5" class="form-control">{{ comment }}</textarea>
+		
+	</div>
+<script type="text/javascript"><!--
+$('input[name=\'shipping_method\']:checked').trigger('click');
+
+$(function () {
+$('.radio2').checkator();
+	$('#activate_checkator2').click(function () {
+	if ($('#radio2_1').data('checkator') === undefined) {
+	$('.radio2').checkator();
+	$('#activate_checkator2').val('destroy checkator');
+	} else {
+	$('.radio2').checkator('destroy');
+	$('#activate_checkator2').val('activate checkator');
+	}
+	});
+});
+//--></script>

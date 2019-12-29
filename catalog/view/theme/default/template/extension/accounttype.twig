@@ -1,0 +1,48 @@
+<div class="clearfix">
+	<div class="panel panel-default">
+		<div class="panel-heading"><i class="fa fa-user" aria-hidden="true"></i> {{ text_cust }} <span class="pull-right"><a data-toggle="modal" data-target="#myModal" id="tmdqclogin">{{ text_log_in }}</a></span></div>
+	</div>
+  <div id="wrapper" class="col-sm-12 {{ account_type_show }}">
+    <p>{{ text_checkout }}</p>
+    <div class="col-sm-4 padd1">
+      
+        {% if account == 'register' %}
+        <input type="radio" class="radio2" name="account" value="register" checked="checked" />
+        {% else %}
+        <input type="radio" class="radio2" name="account" value="register" />
+        {% endif %}
+        <label>{{ text_register }}</label>
+    </div>
+	{% if checkout_gueststatus == 1 %}
+		{% if checkout_guest %}
+			{% if permision %}
+				<div class="col-sm-4 padd1">
+					{% if account == 'guest' %}
+					<input type="radio" name="account" value="guest" checked="checked" class="radio2"/>
+					{% else %}
+					<input type="radio" name="account" value="guest" class="radio2"/>
+					{% endif %}
+				   <label> {{ text_guest }}</label>
+				</div>
+			{% endif %}
+		{% endif %}
+	{% endif %}
+  </div>
+</div>
+
+<script type="text/javascript"><!--
+$('input[name=\'account\']:checked').trigger('click');
+
+$(function () {
+$('.radio2').checkator();
+	$('#activate_checkator2').click(function () {
+	if ($('#radio2_1').data('checkator') === undefined) {
+	$('.radio2').checkator();
+	$('#activate_checkator2').val('destroy checkator');
+	} else {
+	$('.radio2').checkator('destroy');
+	$('#activate_checkator2').val('activate checkator');
+	}
+	});
+});
+//--></script>

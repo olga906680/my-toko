@@ -1,0 +1,101 @@
+<footer>
+  <div class="footer-main">
+  <div class="footer-cnt">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2 col-sm-3 col-xs-6">
+          <h5>{{ text_service }}</h5>
+          <ul class="list-unstyled">
+            <li><a href="{{ account }}">{{ text_account }}</a></li>
+            <li><a href="{{ return }}">{{ text_return }}</a></li>
+            <li><a href="{{ order }}">{{ text_order }}</a></li>
+            <li><a href="{{ wishlist }}">{{ text_wishlist }}</a></li>
+            <li><a href="{{ newsletter }}">{{ text_newsletter }}</a></li>
+            <li><a href="{{ sitemap }}">{{ text_sitemap }}</a></li>
+          </ul>
+        </div>
+        {% if informations %}
+        <div class="col-md-2 col-sm-3 col-xs-6">
+          <h5>{{ text_information }}</h5>
+          <ul class="list-unstyled">
+            <li><a href="{{ contact }}">{{ text_contact }}</a></li>
+            {% for information in informations %}
+
+            <li><a href="{{ information.href }}">{{ information.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %} 
+
+        <div class="col-md-4 col-sm-3 col-xs-12 text-center">
+          <div class="footer-phone">
+            <div class="site-phone_wrap">
+              <a href="#callback" class="callback">{{ text_action_callback }}</a>
+            </div>
+          </div>
+            <div id="callback" class="callback-form product-popup">
+
+            </div>
+          <div class="site-phone">
+            <a href="tel:{{ telephone }}"><i class="fa fa-phone"></i></a> <span class="">{{ telephone }}</span>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+          <ul class="social-list-footer">
+            <li>
+              <a class="social-button" href="#" rel="noffolow" target="_blank">
+                <svg class="icon" viewBox="0 0 32 32" width="32" height="32">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-twitter">Твиттер</use>
+                </svg>
+              </a>
+            </li>
+            <li class="social-crook">
+              <a class="social-button equalize" href="https://www.facebook.com/iam.toko.f/" rel="noffolow" target="_blank" title="facebook">
+                <svg class="icon" viewBox="0 0 24 24" width="32" height="24">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-faseboock">Фейсбук</use>
+                </svg>
+              </a>
+            </li>
+            <li class="social-crook">
+              <a class="social-button equalize" href="https://www.instagram.com/?hl=uk" rel="noffolow" target="_blank" title="instagram">
+                <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-instagram">Инстаграм</use>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <div class="site-email_wrap">
+                <a class="social-button mailback" href="#mailback" rel="noffolow" target="_blank">
+                  <svg class="icon" viewBox="0 0 30 34" width="30" height="34">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-mail">Почта</use>
+                  </svg>
+                </a>
+              </div>
+              <div class="hidden">
+                <div id="mailback" class="mailback-form product-popup"></div>
+              </div>
+            </li>            
+            <li>
+              <a class="social-button" href="viber:add?number={{ text_contact_phone_kyivstar }}" rel="noffolow" target="_blank" title="viber">
+                <svg class="icon" viewBox="0 0 40 44" width="40" height="44">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-viber">Вайбер</use>
+                </svg>
+              </a>
+            </li>            
+            <li>
+              <a class="social-button" href="td://resolve?domain=<@toko2019>" rel="noffolow" target="_blank" title="telegram">
+                <svg class="icon" viewBox="0 0 30 34" width="30" height="34">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-telegram">Телеграм</use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</footer>
+ 
+</body></html>

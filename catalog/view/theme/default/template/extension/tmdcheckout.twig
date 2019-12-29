@@ -1,0 +1,51 @@
+{{ header }}
+<link href="index.php?route=extension/tmdstyle" rel="stylesheet"/>
+<div  id="wait" class="loader hide">
+    <img src="catalog/view/theme/default/image/loader.gif" 	alt="loading" title="loading"/>
+</div>
+<!--breadcrumb code start here-->
+<div class="bread">
+	<div class="container">
+		<ul class="breadcrumb">
+			{% for breadcrumb in breadcrumbs %}
+    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+		</ul>
+	</div>
+</div>
+<!--breadcrumb code end here-->
+<div id="quick-checkout" class="container">
+ 
+  {% if error_warning %}
+  <div class="alert alert-danger" id="warning"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  </div>
+ {% endif %}
+  <div id="warning" class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+       <h1>{{ heading_title }}</h1>
+		   {{ content_layout }}
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+	<div id="tmdlogin"></div>
+</div>
+
+<script type="text/javascript"><!--
+var shipping_required = '{{ shipping_required }}';
+var continuebtn = '{{ continue }}';
+var button_order = '{{ button_order }}';
+var button_shopping = '{{ button_shopping }}';
+var text_loading = '{{ text_loading }}';
+var quicklogged = '{{ logged }}';
+<!--</script>
+<script src="catalog/view/javascript/jquery/quickcheckout.js" type="text/javascript"></script>
+{{ footer }}

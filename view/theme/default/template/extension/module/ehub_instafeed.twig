@@ -1,0 +1,40 @@
+{% if module_name %}
+<h3 class="module-name">{{ module_name }}</h3>
+{% endif %}
+{% if insta_posts_data.token_error %}
+<div class="alert alert-danger"><strong>Warning:</strong>{{ insta_posts_data.token_error }}</div>
+{% endif %}
+  <div class="instagram-feed" > 
+    {% for data in insta_posts_data.insta_results %}
+        <div class="instagram-post" >
+          <a href="{{ data.standard_img_url }}" class="post-url" >
+          <img src="{{ data.image_url }}" alt="einfachub instagram posts" class="img-thumbnail">     
+           <div class="likes"> <i class="fa fa-heart" >  {{ data.likes }} </i> </div>   
+            <div class="comments"> <i class=" fa fa-commenting-o" >  {{ data.comments }} </i> </div>
+          </a>
+        </div>
+    {% endfor %}
+  </div> <!-- instagram posts -->
+
+  <script>
+   $(document).ready(function(){
+$('.instagram-feed').imagesLoaded( function() {
+	   $('.instagram-feed').masonry({ 
+	   itemSelector: '.instagram-post', 
+	   columnWidth: '.instagram-post',
+	   percentPosition: true  
+	   });
+});
+
+  });
+ $('.instagram-feed .instagram-post').magnificPopup({
+  delegate: 'a', // child items selector, by clicking on it popup will open
+  removalDelay: 200,
+  type: 'image',
+    gallery:{
+    enabled:true
+  },
+    mainClass: 'mfp-fade'
+  // other options
+});
+</script>

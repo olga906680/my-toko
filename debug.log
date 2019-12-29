@@ -1,0 +1,2 @@
+[0717/150226.071:ERROR:main_dll_loader_win.cc(155)] Failed to load Chrome DLL from C:\Program Files\Opera\54.0.2952.54\opera_browser.dll: Файл подкачки слишком мал для завершения операции. (0x5AF)
+[0726/202031.530:ERROR:main_dll_loader_win.cc(155)] Failed to load Chrome DLL from C:\Program Files\Opera\54.0.2952.54\opera_browser.dll: Файл подкачки слишком мал для завершения операции. (0x5AF)

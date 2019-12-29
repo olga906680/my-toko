@@ -1,0 +1,13 @@
+catsToHtml (tree, active = constant('null'))
+      {% set str = '' %}
+      {% for category in tree %}
+          {% set str catToTemplate(category, active) = 'undefined' %}
+      {% endfor %}
+        {% set str = 'undefined' %}
+
+catToTempate(category, active) 
+  ob_start()
+  {% set _include = require ~ '/category_template.twig' %}  
+  ob_get_clean()
+
+  {% set cats = catsToHtml(categories_tree, active) %} 

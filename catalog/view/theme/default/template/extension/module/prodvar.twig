@@ -1,0 +1,74 @@
+{% if (prodvar_product_str_ids) %}
+<div class="prodvar-mod">
+<h3>{{ prodvar_title }}</h3>
+<ul class="prodvar">
+
+<li>
+	<div class="swiper-viewport">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+			{% for product in prodvar_product_str_ids %}
+				<div class="swiper-slide">
+                  <a href="{{ product['ajaxseourl'] }}"><img src="{{ product['image'] }}" data-toggle="tooltip" title="{{ product['name'] }}"/></a>
+                  <strong>{{ product['colorprod'] }}</strong>
+              </div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="swiper-pager">
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+		</div>
+	</div>
+</li>
+
+</ul>
+</div>  
+<script language="javascript">
+$(document).ready(function(){ 
+	$('#content').parent().addClass("prodvar_intro"); 
+});
+
+			$('.swiper-container').swiper({
+				mode: 'horizontal',
+				slidesPerView: 3,
+				pagination: '.swiper-pagination',
+				paginationClickable: true,
+				nextButton: '.swiper-button-next',
+				prevButton: '.swiper-button-prev',
+				spaceBetween: 30,
+				loop: true,
+				breakpoints: {
+			    // when window width is <= 320px
+			    320: {
+			      slidesPerView: 2,
+			      spaceBetween: 20
+			    },
+			    // when window width is <= 480px
+			    480: {
+			      slidesPerView: 2,
+			      spaceBetween: 20
+			    },
+			    // when window width is <= 640px
+			    640: {
+			      slidesPerView: 2,
+			      spaceBetween: 20
+			    }
+			  }
+			});
+			
+			$(document).ready(function() {
+				$('.swiper-containerXXX').magnificPopup({
+					type:'image',
+					delegate: 'a',
+					gallery: {
+						enabled: true
+					}
+				});
+			});
+</script>
+<style type="text/css">
+ul.prodvar{padding:0;margin:0}
+.prodvar li{list-style:none}
+</style>
+{% endif %}

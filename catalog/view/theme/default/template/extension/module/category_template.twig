@@ -1,0 +1,12 @@
+<p class="item-p">
+  {% if category.category_id = active %}
+  <a class="list-group-item active" href="{{ category.href }}">{{ category.name }}</a>
+  {% else %}
+  <a class="list-group-item" href="{{ category.href }}">{{ category.name }}</a>
+  {% endif %}
+</p>
+{% if category.childs %}
+  <div class="list-group">
+  <a href="{{ child.href }}" class="list-group-item active">&nbsp;&nbsp;&nbsp;- {{ child.name }}</a> 
+  </div>
+{% endif %}

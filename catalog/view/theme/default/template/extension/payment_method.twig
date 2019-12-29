@@ -1,0 +1,61 @@
+<div class="panel panel-default">
+	<div class="panel-heading"><i class="fa fa-money" aria-hidden="true"></i> {{ text_payment_method_title }}</div>
+</div>
+{% if error_warning %}
+<div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
+{% endif %}
+{% if payment_methods %}
+{% for payment_method in payment_methods %}
+
+  <label class="col-sm-12">
+    {% if payment_method.code == code or not code %}
+    {% set code = payment_method.code %}
+    <input type="radio" class="radio2" name="payment_method" value="{{ payment_method.code }}" checked="checked" />
+    {% else %}
+    <input type="radio" class="radio2" name="payment_method" value="{{ payment_method.code }}" />
+    {% endif %}&nbsp; &nbsp;
+		{% if payment_method.image %}
+			<img src="{{ payment_method.image }}"/>
+		{% endif %}&nbsp; &nbsp;
+		{% if tmdqc_payment_label %}
+		{{ payment_method.title }}
+		{% endif %}
+    {% if payment_method.terms %}
+    ({{ payment_method.terms }})
+    {% endif %} 
+  </label>
+{% endfor %}
+{% endif %}
+<div class="padd {{ tmdqc_payment_comment }}">
+	<label class="control-label col-sm-12">{{ text_comments }}</label>
+	<textarea name="comment" rows="5" class="form-control">{{ comment }}</textarea>
+	
+</div>
+{% if text_agree %}
+<div class="buttons">
+  <div class="pull-right">{{ text_agree }}
+    {% if agree %}
+    <input type="checkbox" name="agree" value="1" checked="checked" />
+    {% else %}
+    <input type="checkbox" name="agree" value="1" />
+    {% endif %}
+    &nbsp;
+  </div>
+</div>
+{% endif %}
+<script type="text/javascript"><!--
+$('input[name=\'payment_method\']:checked').trigger('click');
+
+$(function () {
+$('.radio2').checkator();
+	$('#activate_checkator2').click(function () {
+	if ($('#radio2_1').data('checkator') === undefined) {
+	$('.radio2').checkator();
+	$('#activate_checkator2').val('destroy checkator');
+	} else {
+	$('.radio2').checkator('destroy');
+	$('#activate_checkator2').val('activate checkator');
+	}
+	});
+});
+//--></script>

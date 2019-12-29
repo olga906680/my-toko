@@ -1,0 +1,19 @@
+{% if not redirect %}
+{{ payment }}
+{% if skipconfirm %}
+<style>
+{{ tmdqc_triggerid }}{display:none}
+</style>
+<script type="text/javascript">
+$('{{ tmdqc_triggerid }}').trigger('click');
+</script>
+
+{% endif %}
+{% else %}
+<script type="text/javascript"><!--
+location = '{{ redirect }}';
+//--></script>
+{% endif %}
+<script type="text/javascript"><!--
+$('.loader').addClass('hide');
+//--></script>

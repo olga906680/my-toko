@@ -1,0 +1,1413 @@
+@import "bourbon"
+@import "vars"
+@import "fonts"
+@import "catalog/view/theme/tokostyle/stylesheet/mfp-zoom-in"
+body
+	margin: 0
+	padding: 0
+	font:
+		family: 'Poiret One', cursive
+		font-size: 20px
+		weight: 800
+
+	text-transform: lowercase
+	
+	color: #000
+	letter-spacing: 2.5px
+	line-height: 2
+
+a	
+	outline: none!important
+
+.visually-hidden
+	position: absolute
+	clip: rect(0 0 0 0)
+	wodth: 1px
+	height: 1px
+	margin: -1px
+
+header
+	margin: 0
+	padding-bottom: -20px
+	padding: 0
+	svg
+		&:focus,
+		&:hover
+			fill: #b3b1b3
+	a 
+		color: #000	
+	.dropdown
+		display: inline-block
+		font-size: 16px
+
+
+.btn-link
+	margin-bottom: -10px
+	padding: 5px 10px
+	margin-right: -15px
+	font
+		family: 'Poiret One', cursive
+		size: 18px
+	color: #000	
+	span
+		color: #000
+		font:
+				family: 'Poiret One', cursive
+				font-size: 18px
+				weight: 800
+		text-transform: lowercase
+
+.dropdown-menu
+	border-radius: 0
+	border: none
+	> li 
+	 > 	a 
+	 		padding: 5px 20px
+	 		font-size: 18px
+
+
+
+.list-inline
+	margin-left: auto
+	margin-top: auto
+	text-align: left
+	padding: 0
+	#wishlist-total
+		margin-left: 10px
+		margin-right: 5px
+
+
+#wishlist-total
+	margin-left: 10px
+	margin-right: 5px
+
+
+#cart
+	.btn-group-lg > .btn, .btn-lg
+		font-size: 12px		
+
+#cart .btn-group-lg > .btn, #cart .btn-lg
+ background-color: transparent
+
+
+#cart
+	button + .dropdown-menu
+		margin-top: 0
+		.btn-danger
+			border-radius: 15em
+			padding: 2px 4px 3px 6px
+		margin-bottom: 5px
+		margin-right: 10px
+
+.dropdown-menu.pull-right
+	padding: 15px
+	width: 360px 
+
+
+#search
+	margin-right: auto
+	margin-left: auto
+	margin-bottom: 0
+	margin-top: 15px
+	.form-control
+		padding: 5px 16px
+		height: 24px
+		width: 180px
+		border-bottom: 1px solid #000
+		font:
+			style: italic			
+			family: 'Poiret One', cursive
+			size: 14px
+			weight: 800
+		letter-spacing: 2.5px
+		line-height: 2	
+		transition: background-color .25s ease
+		box-shadow: none
+		&:focus
+		&:hover	
+			background-color: #f1f0f1
+			box-shadow: transparent #e3e3e3 0 0 1px insert
+
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group
+	margin-top: -8px
+
+.live-search
+	border-bottom-left-radius: 0 !important
+	border-bottom-right-radius: 0 !important
+
+	ul 
+		li
+			&:hover,
+			&:active
+				background-color: rgba(153, 153, 153, 0.2) !important
+			&:nth-child(2n)	
+				background-color: rgba(153, 153, 153, 0.1) !important
+				&:hover,
+				&:active
+					background-color: rgba(153, 153, 153, 0.2) !important
+			a 
+				color: #5e5d5d	
+	.result-text
+		background-color: rgba(153, 153, 153, 0.2) !important
+		a 
+			color: #000
+
+
+
+.header-nav
+	margin-top: 20px	
+	margin-bottom: 0
+
+.navbar-fixed-top
+	margin-top: -5px
+	background-color: #fff
+	box-shadow: 0 0 10px rgba(0,0,0,0.5)
+
+.navbar
+	margin-bottom: 0
+	font:
+		family: 'Poiret One', cursive
+		size: 18px
+		weight: 800
+	&-nav		
+		ul
+		> li
+			.sale-top
+					color: red 
+			> a 
+				color: #5e5d5d
+				display: inline-block
+				line-height: 1
+				cursor: pointer
+				&:hover, &:focus
+					background-color: transparent
+				&:after,
+				&:before 
+					background-color: #f66084
+					display: block
+					content: ''
+					height: 0
+					opacity: 0
+					overflow: hidden
+					transition: all .3s ease .15s
+					margin-top: 5px
+					border: transparent 1px solid
+				&:hover:after,
+				&:focus:after,
+					opacity: 1
+					height: 2px
+					margin-right: 30%
+					margin-left: 30%
+					margin-top: 5px	
+
+
+.activemi:not(.see-all)
+	color: #f66084 !important
+	margin-top: 3px
+	font:
+		family: 'Montserrat', sans-serif
+		size: 16px
+		weight: 800
+
+.top-menu
+	.dropdown-menu
+		display: block
+		width: 850px	
+		min-height:	400px
+		margin-left: 0 !important
+		padding: 20px 40px
+		visibility: hidden
+		opacity: 0
+		transform: scale(.8)
+		transition: .4s ease-in-out
+		.dropdown-block
+			position: relative
+			width: 600px
+			column-count: 3
+			column-gap: 20px
+			columns: 3
+			li:nth-child(n+12)
+				display: none
+		.help-block
+			position: relative
+			width: 100px
+		img
+			position: absolute
+			margin-top: -28.5%
+			margin-left: 70%
+		.see-all
+			position: absolute
+			font-size: 18px
+			margin-top: 8%
+			margin-left: 30%
+			padding: 5px 60px
+
+	.help-dropdown-menu
+		width: 300px
+		max-height: 50px !important
+		a 
+			color: #5e5d5d
+			font-size: 18px
+		.help-dropdown-block	
+			column-count: 1
+			columns: 1
+		.help-multi-dropdown	
+			visibility: hidden
+			opacity: 0
+			transform: scale(.8)
+			transition: .4s ease-in-out	
+		.multi-dropdown
+			display: block
+			width: 550px	
+			min-height:	50px
+			margin-top: -50px
+			margin-left: 250px !important
+			padding: 20px 40px
+			.btn 
+				margin-top: 20px
+
+	.cont-dropdown-menu
+		width: 400px
+		height: 500px 
+		a 
+			color: #5e5d5d
+			font-size: 18px
+		.cont-dropdown-block	
+			column-count: 1
+			columns: 1
+		.cont-multi-dropdown	
+			visibility: hidden
+			opacity: 0
+			transform: scale(.8)
+			transition: .4s ease-in-out	
+		.multi-dropdown
+			display: block
+			width: 550px	
+			min-height:	150px
+			margin-top: -50px
+			margin-left: 50px !important
+			padding: 20px 40px
+		.site-phone_wrap	
+			a 
+				margin-top: 110px
+				margin-left: 85px
+		ul
+			li 
+				margin-bottom: 0
+				ul 
+					margin-left: -85px	
+.social-list-top
+	display: flex
+	position: absolute
+	list-style: none
+	margin-top: 30px
+	left: 50px
+	li 
+		margin-right: 40px
+		svg 
+			fill: #5e5d5d
+			&:hover,
+			&:focus
+				fill: #b3b1b3 
+	li:nth-child(4)
+		margin-top: 6px
+		margin-right: 20px
+	li:nth-child(5)
+		margin-top: 5px
+
+
+li 
+	.sub-menu
+		a
+	 		color: #000
+	 		font:
+	 			size: 16px	 					 					
+	.sub-sub-menu	
+		line-height: 1.3
+		a 
+			color: #5e5d5d
+			font:
+				size:	12px	
+
+.navbar
+	&-nav
+		ul
+		> li
+			&:hover,
+			&:focus
+				.dropdown-menu
+					visibility: visible
+					opacity: 1
+					transform: scale(1)		
+			ul
+				> li
+					&:hover,
+					&:focus
+						.help-multi-dropdown
+							visibility: visible
+							opacity: 1
+							transform: scale(1)
+
+.logo
+	display: block
+	position: absolute
+	top: -40px
+	right: 40%
+	
+.swiper-viewport
+	border: none !important
+	box-shadow: none !important
+	border-radius: 0	
+	margin: 0
+	width: 100%
+	margin-right: 0
+	margin-left: 0
+	.button
+			color: #fff
+			font-size: 22px
+			border: 2px solid #fff
+			padding: 5px 20px
+			margin-right: 10px
+			margin-top: 20px
+			background-color: rgba(255, 255, 255, 0.3)
+			&:hover,
+			&:focus
+				text-decoration: none
+				background-color: rgba(255, 255, 255, 0.7)
+
+.swiper-pager
+	.swiper-button-next::before,
+		font-size: 15px
+
+	.swiper-button-prev::before
+		font-size: 15px
+
+
+
+.swiper-pagination-bullet
+	background: white
+	opacity: 0.7	
+
+.swiper-pagination-bullet-active
+	background: white
+	opacity: 1	
+
+#trand-block	
+	.view,
+	.view1
+		overflow: hidden
+		position: relative
+		text-align: center
+		box-shadow: 1px 1px 2px #e6e6e6
+		cursor: default
+		background: #fff url(../image/catalog/demo/banners/1200x1790.jpg) no-repeat center center	
+		.mask
+			width: 100%
+			height: 100%
+			position: absolute
+			overflow: hidden
+			top: 0
+			left: 0
+			opacity: 0
+			transition: all 0.4s ease-in-out
+		img
+			display: block
+			position: relative
+			transition: all 0.2s linear
+		h2
+			text-transform: uppercase
+			color: #6c6c70
+			position: relative
+			font:
+				family: 'Montserrat', sans-serif
+				size: 4.5rem
+				weight: 800
+			padding: 10px	
+			margin: 10% 0 0 0
+			transform: translateY(-100px)
+			opacity: 0
+			transition: all 0.2s ease-in-out																									
+		p 
+			font-size: 2rem
+			color: #fff 
+			position: relative
+			padding: 5%
+			text-align: center
+			background: rgba(0, 0, 0, 0.3)
+			margin-top: 50%
+			
+			transform: translateY(100px)
+			opacity: 0
+			transition: all 0.2s linear
+		.info
+			display: inline-block
+			text-decoration: none
+			padding: 14px 34px
+			color: #fff
+			text-transform: uppercase
+			font-size: 2rem
+			background: #000
+			margin-top: 15%
+			box-shadow: 0 0 1px #000
+			&:hover
+				box-shadow: 0 0 5px #000
+			opacity: 0
+			transition: all 0.2s ease-in-out
+		&:hover
+			img
+				transform: scale(1.1)
+			.mask
+				opacity: 1
+			h2,
+			p,
+			.info
+				opacity: 1
+				transform: translateY(0px)
+			p 
+				transition-delay: 0.1s
+			.info
+				transition-delay: 0.2s						
+
+
+.main-text
+	position: absolute
+	top: 60px
+	right: 120px
+	width: 250px
+	color: #fff
+	z-index: 10
+	h1
+		font-size: 90px
+		text-align: left
+	p 
+	 font-size: 30px
+	 letter-spacing: 2px
+	 line-height: 1.5
+	 text-align: left
+	.button-main
+		display: flex
+		button 
+			margin-right: 30px
+			margin-top: 30px
+			border-radius: 0
+			color: #fff 
+			background-color: rgba(253, 253, 255, 0.7)
+			border-color: #fff
+			&:hover,
+			&:focus
+				background-color: rgba(149, 149, 255, 0.3)
+			a 
+				color: #787878
+				font-size: 18px	
+				text-transform: lowercase
+				padding: 5px 10px
+
+.social-list
+	display: flex
+	position: absolute
+	list-style: none
+	bottom: 20px
+	fill: #fff
+	z-index: 2
+	margin: 0	
+	opacity: 0.8	
+	li 
+	 margin-right: 40px
+	 &:hover,
+	 &:focus
+	 	opacity: 0.5	
+
+.social-crook
+		margin-top: 5px
+
+	
+.clothes-trand
+	margin-top: 80px
+
+.clothes-trand-image-woman
+	img
+		display: inline-block
+		height: auto
+		max-width: 100%
+		margin-right: auto
+
+
+.image-sub
+	display: flex
+	position: absolute
+	top: 40%
+	width: 90%
+	text-align: center
+	.clothes-trand-text
+		margin-left: auto
+		margin-right: auto
+		justify-content: space-between
+		color: #fff	
+		font:
+			family: 'Montserrat', sans-serif
+		h3
+			font:
+				size: 3.5rem
+				weight: 800
+				style: italic
+		p 
+			font:
+				size: 1.8rem
+				weight: 600
+
+.image-button
+	position: absolute
+	top: 85%	
+	left: 33%
+	a.button 
+		padding: 1rem 2rem
+		color: #fff
+		font-size: 1.6rem
+		border: 2px solid #fff					
+		&:hover,
+		&:focus
+			background-color: rgba(253, 253, 255, 0.7)
+
+.module-instagram
+	margin-top: 100px 
+	text-align: center
+	line-height: 5.5
+	h4	
+		font:
+			family: 'Montserrat', sans-serif
+			size: 30px 
+			weight: 800
+			style: italic	
+		text-transform: lowercase		
+		color: #000
+		letter-spacing: 2.5px
+		line-height: 0.1
+	p 
+		font-size: 16px
+		width: 400px
+		margin-top: 50px
+		margin-bottom: 30px
+		line-height: 1.5	
+		letter-spacing: 3.5px
+		margin-right: auto
+		margin-left: auto
+
+#instagram
+	svg
+		fill: #fff
+
+
+
+.instagram .item a::before			
+	background-color: rgba(132, 130, 131, 0.7)
+
+
+.recommend
+	text-align: center
+	margin-top: 30px
+	.product-thumb
+			width: 100%
+	h3	
+		margin-bottom: 80px	
+		font:
+			family: 'Montserrat', sans-serif
+			size: 25px
+			weight: 600
+			style: italic	
+		text-transform: lowercase		
+		color: #000
+		letter-spacing: 2.5px
+		line-height: 0.1
+	h4	
+		margin-top: 15px
+		margin-bottom: 20px	
+		font:
+			family: 'Montserrat', sans-serif
+			size: 12px
+			weight: 600
+			style: italic	
+		text-transform: lowercase		
+		letter-spacing: 2.5px
+		line-height: 0.1	
+	a 
+		color: #000
+	p
+		height: 0
+		font-size: 0
+	p.price
+				margin-top: -25px
+				margin-bottom: 15px
+				font-size: 10px
+	button 
+		margin-top: 25px
+		border: none
+		background-color: transparent
+		border: transparent 1px solid
+		&:hover
+			border: 1px dotted #6b6a6b
+
+.footer-cnt
+  margin-top: 0	
+  a 
+  	color: #000
+  ul
+  	margin-bottom: 30px
+  	padding: 0
+  .site-phone
+  	margin-top: 20px
+  	margin-bottom: 20px
+  	a 
+  		margin-left: -95px
+
+.site-phone_wrap
+	margin-top: 3px
+	margin-left: -60px
+
+.breadcrumb 
+	margin: 0
+	background-color: #fff
+	a
+		color: #908d8d
+
+.mfp-content
+	.product-popup
+		display: block
+		.price-tax
+			display: none
+	.pp-img-wrap
+		text-align: center
+		img
+			max-width: 60%
+			margin-top: 10px
+	.pp-content	
+		h3
+			margin
+				top: 30px
+				bottom: 10px
+			font-size: 20px	
+			text-align: center
+			font-family: 'Montserrat', sans-serif
+			font-style: italic
+	p 
+		text-align: center
+		font-size: 14px	
+		.price-old
+			text-decoration: line-through	
+			font-size: 12px	
+				
+
+.product-popup
+	background-color: #fff 
+	max-width: 400px
+	position: relative
+	margin: auto
+	padding: 15px
+	display: none
+	.success
+		position: absolute
+		font-size: 18px
+		z-index: 1
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		background-color: #fff
+		text-align: center
+		padding: 70% 10% 10%
+		display: none
+	form 
+		position: relative
+		margin-top: 15px
+	h2
+		margin
+			top: 15px
+			bottom: 10px
+		font-size: 26px	
+		text-align: center
+		font-family: 'Montserrat', sans-serif
+		font-style: italic
+	p	
+		text-align: center
+	strong
+		font-family: 'Montserrat', sans-serif
+		font-style: italic
+	.btn 
+		position: absolute
+		right: 0
+		bottom: 0	
+		transition: background-color .35s ease
+
+.callback-form
+	.success
+		padding-top: 24%
+	
+	
+			
+
+.form-control
+	border-radius: 0
+	
+.btn-primary
+	background-color: #f66886
+	border-color: #f66886
+	border-radius: 0
+	&:hover,
+	&:focus
+	 background-color: rgba(246, 104, 134, 0.9)
+	 border-color: rgba(246, 104, 134, 1)
+
+#mailback	
+	height: 400px
+	.btn-primary
+		height: 30px
+		top: 200px
+		right: 20%
+	textarea
+		color: #5e5d5d
+	.success
+		padding-top: 44%
+
+.footer-cnt
+	margin-top: 20px
+
+.social-list-footer
+	display: flex
+	position: absolute
+	list-style: none
+	bottom: -85px
+	right: -10px
+	fill: #000
+	z-index: 2
+	margin: 0	
+	opacity: 0.8	
+	li 
+	 margin-right: 40px
+	 &:hover,
+	 &:focus
+	 	opacity: 0.5
+	li:nth-child(5)
+		margin-top: 6px
+		margin-right: 20px
+	li:nth-child(6)
+		margin-top: 5px	
+
+
+
+.product-layout
+	> .product-thumb
+			transition: box-shadow .25s ease
+			&:hover
+				box-shadow: #cecccc 0 0 0 1px inset	
+			text-align: center	
+	.caption
+		padding: 0 25px
+		p 
+			display: none
+			&.price
+				display: block
+			.price-tax
+				display: none
+	h4 
+		margin-top: 10px
+		a 
+			color: #000			
+			font:
+				family: 'Montserrat', sans-serif
+				size: 12px
+				weight: 600
+				style: italic	
+			text-transform: lowercase		
+			letter-spacing: 2.5px
+			line-height: 0.1
+			margin-bottom: 1px
+	.price
+		margin-top: 0 
+		font-size: 14px	
+		margin-bottom: 1px
+		.price-old
+			font-size: 10px
+			color: #6b6a6b
+			text-decoration: line-through	
+	.button-group
+		> *
+			display: none
+			&:first-child,
+			&:nth-child(2),
+			&:nth-child(3),
+				display: inline-block
+			&:nth-child(4)
+				display: block
+				margin-bottom: 20px								
+	button 
+		border: none
+		background-color: transparent
+		padding-top: 0
+		padding-bottom: 0
+		border: transparent 1px solid
+		margin-bottom: 0
+		&:hover
+			border: 1px dotted #6b6a6b
+	.toclick			
+		color: #414041
+		left: 50px
+		font:
+			family: 'Montserrat', sans-serif
+			size: 12px
+			weight: 200
+			style: italic	
+		text-transform: lowercase		
+		letter-spacing: 2.5px
+		line-height: -0.1
+		&:hover,
+		&:active
+			text-decoration: none
+			color: red
+
+.alert	
+	border-radius: 0
+
+#content
+	h1
+		margin-top: 0
+		margin-left: 40%
+		margin-right: auto
+		margin-bottom: 0
+	.form-group
+		margin-top: 60px
+	.sub-name
+		font:
+			family: 'Poiret One', cursive
+			size: 20px
+			weight: 800
+			size: 20px
+		text-transform: lowercase
+	.img-thumbnail,
+	.image
+		display: block
+		margin: 0	
+		border: transparent 1px solid
+		transition: border .25s ease
+		&:hover
+			border-color: #cecccc
+	.sub-div
+		display: block
+		position: absolute
+		margin-right: auto
+		margin-left: auto
+		width: 100%
+		height: 50px	
+		bottom: 5%
+		background-color: rgba(251, 248, 249, 0.8)
+		&:hover,
+		&:focus,
+			background-color: rgba(251, 248, 249, 0.3)			
+	.sub-cats
+		a
+			text-align: center
+	.sub-cont
+		display: block
+		position: absolute
+		width: 100%
+		text-align: center
+		margin-top: -22%
+		z-index: 3
+		font:
+			family: 'Poiret One', cursive
+			size: 18px
+		a 
+			color: #908d8d
+			margin-left: auto
+			margin-right: auto
+			&:hover,
+			&:focus
+				text-decoration: none
+													
+		color: #000
+		letter-spacing: 2.5px
+		line-height: 2
+
+#content
+	.child-category			
+		position: relative
+		.cild-cont
+			transition: box-shadow .25s ease
+			&:hover,
+			&:focus
+				box-shadow: #cecccc 0 0 0 1px inset	 	
+		.child-name	
+			display: block
+			text-align: center									
+			position: absolute
+			color: #000		
+			width: 157px
+			padding: 5px 0 5px 0
+			margin-top: -60px
+			margin-left: 4px
+			background-color: rgba(251, 248, 249, 0.8)
+			&:hover
+				background-color: rgba(251, 248, 249, 0.3)
+
+
+
+#compare-total	//Сравнение товаров
+
+.input-group .form-control, .input-group-addon, .input-group-btn > .btn, .input-group-btn > .btn-group > .btn, .input-group-btn > .dropdown-toggle, .input-group-btn > .btn-group > .btn, .input-group-btn > .btn
+	border-radius: 0
+	border: none
+	background-color: transparent
+#input-sort,
+#input-limit	
+	transition: background-color .35s ease
+	&:hover,
+	&:focus
+		background-color: rgba(144, 141, 141, 0.2)
+
+#input-limit
+	width: 60px
+
+
+select
+	-webkit-appearance: none
+	-moz-appearance: none
+	-ms-appearance: none
+	-o-appearance: none
+	appearance: none
+	border: none
+	position: relative
+	outline: none !important
+
+select:after
+	content: ''
+	display: block
+	width: 25px
+	height: 25px
+	right: 0
+	top: 0			
+
+.input-group .form-control, .input-group-addon, .input-group-btn
+	width: 150px
+
+.pagination > li > a,
+.pagination > li > span 
+	margin-top: 40px
+	margin-bottom: 0
+	border: none
+	color: #000
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover
+	background-color: #fff
+	color: #f66084
+
+.viewed
+	text-align: center
+	
+	.product-layout .transition
+		> .product-thumb
+				display: block
+				width: 170px !important
+
+#product-product
+	#content
+		.toko-rek, .viewed-mi
+			text-align: center
+			margin-top: 120px
+			margin-bottom: 30px
+			font:
+				family: 'Montserrat', sans-serif
+				size: 22px
+				weight: 600
+				style: italic	
+			margin-left: 0
+			color: #000
+		color: #908d8d
+		.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle),
+		.btn-group > .btn:last-child:not(:first-child), .btn-group > .dropdown-toggle:not(:first-child)
+			border: none
+			top: 10px
+		hr 
+			margin-top: 4px
+			border: none
+			color: #c7c7c7
+			background-color: #c7c7c7
+			height: 1px
+		h1 	
+			text-align: center
+			font:
+				family: 'Montserrat', sans-serif
+				size: 28px
+				weight: 600
+				style: italic	
+			margin-top: 60px
+			margin-left: 0
+			color: #000
+		.thumbnails
+			list-style: none
+		.prod-top
+			position: relative
+			margin-top: -7%	
+			.model-product-mi
+				text-align: right
+				margin-top: 1.5%
+				strong
+					font:
+						size: 14px
+						weight: 600
+					color: #000
+			.stok-product-mi
+				text-align: right
+				margin-top: 10px	
+				strong
+					font:
+						size: 14px
+						weight: 600
+					color: #000	
+		.sku-product-mi
+			margin-top: -20px	
+			margin-left: -15px
+			strong
+				font:
+					size: 14px !important
+					weight: 600 !important
+				color: #000	!important
+		.price-wrap
+			margin-top: 30px		
+		.def-price,
+		.spec-price,
+			text-align: center
+			font:
+				size: 22px
+			color: #000	
+		.sale-price
+			text-align: center
+		.prodvar-mod
+			margin-top: 20px
+			h3
+				font
+					size: 14px
+					weight: 800
+				color: #000
+				text-align: center
+			.swiper-viewport
+				.swiper-container
+					.swiper-wrapper
+						.swiper-slide
+							text-align: center							
+							strong
+								color: #000																																																																															
+		#input-option228
+			margin-top: -40px
+			text-align: center
+			.checkbox
+				position: relative
+				padding: 0
+				display: inline-block
+			input[type=checkbox]	
+				display: none
+			label
+				text-align: center
+				border: 1px solid #000	
+				padding: 0
+				margin-right: 20px
+				padding-top: 2px
+				font:
+					family: 'Montserrat', sans-serif
+					weight: 600
+				color: #000
+				width: 38px
+				height: 36px
+			label[for]	
+				cursor: pointer
+		#input-option233
+			text-align: center
+			display: block
+			position: relative
+			margin-left: auto
+			margin-right: auto
+			outline: none
+			border: 1px solid #c7c7c7
+			box-shadow: inset 1px 1px 1px 1px #fff
+			width: 350px
+			option 
+				text-align: center
+
+
+label[for=input-option233]	
+	display: block
+	position: relative
+	text-align: center
+	margin-top: -20px
+	color: #000
+				
+				
+label input[type=checkbox]:checked + .label-text
+	background-color: #000
+	padding: 8px 7px 10px 8px
+	color: #fff				
+				
+.quantity-product-mi
+	margin-top: -10px
+	text-align: center
+	.input-group
+		input 
+				outline: none
+				border: 1px solid #c7c7c7
+				box-shadow: inset 1px 1px 1px 1px #fff
+	span 
+		color: #000
+	.number-spinner
+		margin-left: auto
+		margin-right: auto
+		margin-top: 10px	
+		width: 30px	
+
+
+	
+#product
+	.control-label-color
+		display: none	
+	.swiper-container	
+		display: block
+		width: 500px !important
+
+	#button-cart
+		margin-left: auto
+		margin-right: auto
+		margin-top: 40px
+		width: 350px
+		height: 50px
+		text-transform: lowercase
+		font:
+			family: 'Montserrat', sans-serif
+			weight: 600
+			size: 16px
+	.site-phone_wrap_product
+		text-align: center
+		margin-top: 20px	
+		margin-bottom: 60px
+		a 
+			margin-left: auto
+			margin-right: auto
+			display: block
+			border-radius: 0
+			width: 350px
+			padding-top: 15px
+			padding-bottom: 15px
+			background-color: rgba(27, 27, 27, 1)
+			color: #fff
+			font:
+				family: 'Montserrat', sans-serif
+				weight: 600
+				size: 16px
+			transition: background-color .35s easet
+			&:hover,
+			&:focus
+				background-color: rgba(27, 27, 27, 0.9)
+				border-color: rgba(27, 27, 27, 1)
+	.control-label
+		font-weight: normal
+		margin-bottom: 15px
+	.input-group .form-control:not(:first-child):not(:last-child), .input-group-addon:not(:first-child):not(:last-child), .input-group-btn:not(:first-child):not(:last-child)
+		width: 50px
+
+
+.swiper-button-prev,
+	.swiper-button-next
+		&:before	
+			width: 20px !important
+			height: 20px !important
+
+.social-list-product
+	display: flex
+	position: absolute
+	list-style: none
+	top: 10px
+	left: -40px
+	fill: #000
+	margin: 0	
+	li 
+	 margin-right: 40px
+	 &:hover,
+	 &:focus
+	 	opacity: 0.5	
+	li:nth-child(5)
+		margin-top: 6px
+		margin-right: 20px
+	li:nth-child(6)
+		margin-top: 5px	
+.social-crook
+		margin-top: 5px
+
+.rating
+	margin-top: 20px
+	a 
+		color: #5e5d5d
+		&:hover,
+		&:focus
+			color: #000
+
+.fa-stack-2x
+	font-size: 1em
+
+.fa-stack-1x
+	color: #000	
+
+.nav-tabs > li.active > a
+	border-radius: 0
+	font:
+		family: 'Montserrat', sans-serif
+		weight: 600
+		size: 14px
+
+#tab-description
+	padding: 30px 0	
+
+.product-page-image
+	padding: 0
+	margin: 0
+	.thumbnail
+		border: none
+
+.product-page-image-cont
+	display: block
+	position: relative
+	
+	width: 555px
+	height: auto
+							
+.zoomContainer
+	z-index: 500
+	width: 555px !important
+	height: 833px !important
+	.zoomWindowContainer
+		z-index: 1000
+		.zoomWindow
+  		border: none !important 
+
+
+.thumbnail
+	display: flex
+
+.thumbnails-popup
+	list-style-type: none
+	margin-left: -12%
+
+	li:not(:first-child)
+		display: none
+			
+
+
+.active-slide
+	border: 2px solid red
+
+#content	
+	.product-zoom
+		border: transparent 1px solid
+		transition: border .25s ease
+		&:hover
+			border-color: #cecccc
+		text-align: center	
+	.caption
+		text-align: center		
+		padding: 0 25px
+		.rating
+			display: none	
+		p 
+			display: none
+			&.price
+				display: block
+				color: #000
+			.price-tax
+				display: none
+	h4 
+		margin-top: 10px
+		a 
+			color: #000			
+			font:
+				family: 'Montserrat', sans-serif
+				size: 12px
+				weight: 600
+				style: italic	
+			text-transform: lowercase		
+			letter-spacing: 2.5px
+			line-height: 0.1
+			margin-bottom: 1px
+	.price
+		margin-top: 0 
+		font-size: 14px	
+		margin-bottom: 1px
+		.price-old
+			font-size: 10px
+			color: #6b6a6b
+			text-decoration: line-through	
+	.button-group
+		> *
+			display: none
+			&:first-child,
+			&:nth-child(2),
+			&:nth-child(3),
+				display: inline-block
+			&:nth-child(4)
+				display: block
+				margin-bottom: 20px	
+	.group-mi
+		text-align: center
+		color: #000
+																																								
+	button:not(#button-cart) 
+		border: none
+		background-color: transparent
+		padding-top: 0
+		padding-bottom: 0
+		border: transparent 1px solid
+		margin-bottom: 0
+		&:hover
+			border: 1px dotted #6b6a6b
+	.toclick			
+		color: #414041
+		left: 50px
+		font:
+			family: 'Montserrat', sans-serif
+			size: 12px
+			weight: 200
+			style: italic	
+		text-transform: lowercase		
+		letter-spacing: 2.5px
+		line-height: -0.1
+		&:hover,
+		&:active
+			text-decoration: none
+			color: red
+
+.alert	
+	border-radius: 0
+
+.viewed-mi
+	.product-layout
+		width: 200px
+	h3
+		margin-bottom: 30px	
+		font:
+			family: 'Montserrat', sans-serif
+			size: 22px
+			weight: 600
+			style: italic	
+
+.required-star
+	font-size: 20px
+	color: red
+
+.collapse-checkout-confirm
+	.panel-body
+		.table-responsive
+			.table-hover
+				tbody
+					tr 									
+						.text-left
+							a 
+								color: #000	
+
+@import "media"
+
+
+
+

@@ -1,0 +1,57 @@
+/*custom css style*/
+.instagram-post { 
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-bottom: 5px;
+  float: left;
+  width: 14%; 
+}
+.module-name{ padding-left: 6px; }
+#column-left .instagram-post,#column-right .instagram-post
+{
+  width: 50%;
+}
+.instagram-post:hover { 
+  opacity: 0.8;
+  border-color: white;
+   transition: 0.5s;
+}
+a.post-url .fa  { 
+    color: #fff;
+    font-size: 15px;
+}
+a.post-url
+{
+   display: block;
+    position: relative;
+}
+.post-url .likes
+{
+  position: absolute;
+    padding: 11px;
+    color: #fff;
+    width: 100%;
+    bottom: 0;
+    background: #33333330;
+}
+.comments
+{
+    position: absolute; 
+    bottom: 0px;
+    right: 0px;
+    padding: 11px;
+}
+@media only screen and (max-width: 641px) {
+     a.post-url .fa { 
+    font-size: 12px;
+}
+}
+@media only screen and (max-width: 1024px) {
+.instagram-post {width: 24%;}
+}
+@media only screen and (max-width: 768px) {
+.instagram-post {width: 33%;}
+}
+@media only screen and (max-width: 480px) {
+.instagram-post {width: 49%;}
+}

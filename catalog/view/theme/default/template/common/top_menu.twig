@@ -1,0 +1,204 @@
+{% if categories %}
+<div class="container">
+  <nav id="menu" class="navbar">
+    <div class="navbar-header"><span id="category" class="visible-xs">{{ text_category }}</span>
+      <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse" data-hover="hover-on-menu">
+      <ul class="nav navbar-nav">
+        <li><a href="{{ action_new }}" data-hover="hover-on-link">{{ text_new }}</a></li>
+        {% for category in categories %}
+        {% if category.children %}
+        <li class="dropdown"><a href="{{ category.href }}" class="dropdown-toggle" data-hover="hover-on-link">Каталог</a>
+          <div class="dropdown-menu">            
+            <div class="dropdown-inner"> {% for children in category.children|batch(category.children|length / category.column|round(1, 'ceil')) %}
+              <div class="dropdown-block">
+                <ul class="list-unstyled" id="double" data-hover="hover-on-menu">
+                  {% for child in children %}
+                  {% if child.children_lv3  %}
+                  <li class="sub-menu"><a href="{{ child.href }}" data-hover="hover-on-link">{{ child.name }}</a>
+                    {% for children_lv3 in child.children_lv3|batch(child.children_lv3|length / child.column|round(1, 'ceil')) %}
+                    <ul class="list-unstyled" data-hover="hover-on-menu">
+                      {% for child_lv3 in children_lv3 %}
+                      <li class="sub-sub-menu"><a href="{{ child_lv3.href }}" data-hover="hover-on-link">{{ child_lv3.name }}</a></li>
+                      {% endfor %}
+                    </ul>
+                    {% endfor %}
+                  </li>
+                  {% else %}
+                  <li class="sub-menu"><a href="{{ child.href }}" data-hover="hover-on-link">{{ child.name }}</a></li>
+                  {% endif %}<hr size=3px width=130px align="left" color="#000">
+                  {% endfor %}                
+                </ul>
+              </div>
+            {% endfor %}</div>
+            <a href="odezhda-toko-zhenshhinam-ru" data-hover="hover-on-link"><img src="image\catalog\demo\product\menu\zhenskaya-odezhda-toko-3.jpg" alt="Женщинам"></a>
+            <a href="{{ category.href }}" class="see-all btn btn-default btn-sm" data-hover="hover-on-link">{{ text_all }}</a> 
+          </div>
+        </li>
+        {% else %}
+        <li><a href="{{ category.href }}" data-hover="hover-on-link">{{ category.name }}</a></li>
+        {% endif %}
+        {% endfor %}
+        <li><a href="{{ action_sale }}" data-hover="hover-on-link" class="sale-top">{{ text_sale }}</a></li>
+        <li class="dropdown"><a href="{{ action_help }}" class="dropdown-toggle" data-hover="hover-on-link">{{ text_help }}</a>
+          <div class="dropdown-menu help-dropdown-menu">
+            <div class="dropdown-block help-dropdown-block">
+              <ul class="list-unstyled">
+                <li><a href="{{ action_checkout_mi }}" data-hover="hover-on-link" class="dropdown-toggle" data-toggle="dropdown">{{ text_checkout_mi }}</a>
+                  <div class="help-multi-dropdown">
+                    <ul class="dropdown-menu multi-dropdown hidden-xs hidden-sm">
+                      <h3>{{ ways_checkout_mi }}</h3>
+                      <li>{{ first_checkout_mi }}</li>
+                      <li>{{ second_checkout_mi }}</li>
+                      <li>{{ third_checkout_mi }}</li>
+                    </ul>
+                  </div> 
+                </li>
+                <li><a href="{{ action_payment_mi }}" data-hover="hover-on-link">{{ text_payment_mi }}</a>
+                 <div class="help-multi-dropdown">
+                  <ul class="dropdown-menu multi-dropdown hidden-xs hidden-sm">
+                    <h3>{{ ways_payment_mi }}</h3>
+                    <li>{{ first_payment_mi }}</li>
+                    <li>{{ second_payment_mi }}</li>
+                  </ul>
+                </div> 
+              </li>
+              <li><a href="{{ action_delivery_mi }}" data-hover="hover-on-link">{{ text_delivery_mi }}</a>
+                <div class="help-multi-dropdown">
+                  <ul class="dropdown-menu multi-dropdown hidden-xs hidden-sm">
+                    <h3>{{ ways_delivery_mi }}</h3>
+                    <li>{{ first_delivery_mi }}</li>
+                    <li>{{ second_delivery_mi }}</li>
+                  </ul>
+                </div> 
+              </li>
+              <li><a href="{{ action_dropshipping }}" data-hover="hover-on-link">{{ text_dropshipping }}</a>
+               <div class="help-multi-dropdown">
+                <ul class="dropdown-menu multi-dropdown hidden-xs hidden-sm">
+                  <h3>{{ ways_dropshipping }}</h3>
+                  <li>{{ first_dropshipping }}</li>
+                  <li>{{ second_dropshipping }}</li>
+                  <li>{{ third_dropshipping }}</li>
+                  <li>{{ fourth_dropshipping }}</li>
+                </ul>
+              </div> 
+            </li>
+            <li><a href="{{ action_return }}" data-hover="hover-on-link">{{ text_return }}</a>
+             <div class="help-multi-dropdown">
+              <ul class="dropdown-menu multi-dropdown hidden-xs hidden-sm">
+                <li>{{ first_return }}</li>
+                <br>
+                <li>{{ second_return }}</li>
+                <div class="col-sm-12 col-xs-12">
+                  <a href="{{ action_return }}" class="btn btn-default btn-sm center-block">{{ text_see_all  }}</a>
+                </div>
+              </ul>
+            </div> 
+          </li>
+        </ul>     
+      </div>
+    </div>
+  </li>
+  <li><a href="{{ action_contact }}" data-hover="hover-on-link">{{ text_contact }}</a>
+   <div class="dropdown-menu cont-dropdown-menu">
+     <div class="dropdown-block cont-dropdown-block">
+       <ul class="list-unstyled">
+        <h3>{{ text_contact_phone_mi }}</h3>
+        <li><a href="tel:{{ text_contact_phone_vodafone }}">{{ text_contact_phone_vodafone }}</a></li>
+        <li><a href="tel:{{ text_contact_phone_kyivstar }}">{{ text_contact_phone_kyivstar }}</a></li>
+        <h3>{{ text_email_mi }}</h3>
+        <li>
+          <div class="site-email_wrap">
+            <a href="#mailback" class="mailback">{{ text_email_mi_email }}</a>
+          </div>
+          <div class="hidden">
+            <div id="mailback" class="mailback-form product-popup">
+              <h2>{{ text_mailback }}</h2>
+              <p>{{ text_mailback_help }}</p>
+              <form class="ajax-form" action="{{ action }}" method="post"></a>
+                <input type="hidden" name="project_name" value="tokoServis">
+                <input type="hidden" name="admin_email" value="{{ email }}">
+                <input type="hidden" name="form_subject" value="{{ text_mailback_mi }}">
+                <!-- END Hidden Required Fields -->
+
+                <input class="form-control" type="text" name="{{ text_mailback_name }}" placeholder="{{ text_mailback_handle }}"><br>
+                <input class="form-control" type="text" name="Email" placeholder="{{ text_mailback_email }}" required=""><br>   
+                <textarea  class="form-control" rows="1" cols="56" name="text" placeholder="{{ text_mailback_text }}"></textarea>
+                <button class="btn btn-primary">{{ text_mailback_order }}</button>
+              </form>
+              <div class="success">{{ text_mailback_answer }}</div>
+            </div>
+          </div>
+        </li>
+        <h3>{{ text_contact_social }}</h3>
+        <li>
+          <ul class="social-list-top">
+            <li>
+              <a class="social-button" href="#" rel="noffolow" target="_blank">
+                <svg class="icon" viewBox="0 0 32 32" width="32" height="32">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-twitter">Твиттер</use>
+                </svg>
+              </a>
+            </li>
+            <li class="social-crook">
+              <a class="social-button equalize" href="https://www.facebook.com/iam.toko.f/" rel="noffolow" target="_blank" title="facebook">
+                <svg class="icon" viewBox="0 0 24 24" width="32" height="24">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-faseboock">Фейсбук</use>
+                </svg>
+              </a>
+            </li>
+            <li class="social-crook">
+              <a class="social-button equalize" href="https://www.instagram.com/?hl=uk" rel="noffolow" target="_blank" title="instagram">
+                <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-instagram">Инстаграм</use>
+                </svg>
+              </a>
+            </li>         
+            <li>
+              <a class="social-button" href="viber:add?number={{ text_contact_phone_kyivstar }}" rel="noffolow" target="_blank" title="viber">
+                <svg class="icon" viewBox="0 0 40 44" width="40" height="44">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-viber">Вайбер</use>
+                </svg>
+              </a>
+            </li>            
+            <li>
+              <a class="social-button" href="td://resolve?domain=<@toko2019>" rel="noffolow" target="_blank" title="telegram">
+                <svg class="icon" viewBox="0 0 30 34" width="30" height="34">
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="catalog\view\theme\tokostyle\image\sprite.svg#icon-telegram">Телеграм</use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <div class="site-phone_wrap">
+          <a href="#callback" class="callback btn btn-default btn-sm">{{ text_callback }}</a>
+        </div>
+        <div class="hidden">
+          <div id="callback" class="callback-form product-popup"> 
+            <h2>{{ text_callback }}</h2>
+            <p>{{ text_callback_help }}<strong>{{ text_callback_time }}</strong>.</p>
+            <!-- Hidden Required Fields -->
+            <form class="ajax-form">
+              <input type="hidden" name="project_name" value="tokoServis">
+              <input type="hidden" name="admin_email" value="{{ text_email_mi_email }}">
+              <input type="hidden" name="form_subject" value="{{ text_callback_mi }}">
+              <!-- END Hidden Required Fields -->
+
+              <input class="form-control" type="text" name="{{ text_callback_name }}" placeholder="{{ text_callback_handle }}"><br>
+              <input class="form-control" type="text" name="Телефон" placeholder="{{ text_callback_phone_number }}" required="">
+              <button class="btn btn-primary">{{ text_callback_order }}</button>
+
+            </form>
+            <div class="success">{{ text_callback_answer }}</div>
+          </div>
+        </div>
+      </ul>  
+    </div>  
+  </div>  
+</li>
+</ul>
+</div>
+</nav>
+</div>
+{% endif %} 

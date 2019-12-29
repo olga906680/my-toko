@@ -1,0 +1,198 @@
+<div class="col-sm-8">
+    <form action="{{ action }}" method="post" enctype="multipart/form-data">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+				<th colspan="{{ colspn }}" class="text-center"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {{ heading_title }}</th>
+			</tr>
+			</thead>
+			<thead>
+              <tr>
+                {% if tmdqc_cart_image_status %}
+					<td class="text-center">{{ column_image }}</td>
+					{% endif %}
+					{% if tmdqc_cart_name_status %}
+					<td class="text-left">{{ column_name }}</td>
+					{% endif %}
+						{% if tmdqc_cart_model_status %}
+					<td class="text-left">{{ column_model }}</td>
+						{% endif %}
+						{% if tmdqc_cart_upc_status %}
+					<td class="text-left">{{ column_upc }}</td>
+						{% endif %}
+						{% if tmdqc_cart_ean_status %}
+					<td class="text-left">{{ column_ean }}</td>
+						{% endif %}
+						{% if tmdqc_cart_isbn_status %}
+					<td class="text-left">{{ column_isbn }}</td>
+						{% endif %}
+						{% if tmdqc_cart_qty_status %}
+					<td class="text-left">{{ column_quantity }}</td>
+						{% endif %}
+						{% if tmdqc_cart_unitprice_status %}
+					<td class="text-right">{{ column_price }}</td>
+						{% endif %}
+			 		<td class="text-right">{{ column_total }}</td>
+               </tr>
+            </thead>
+			
+            <tbody>
+              {% for product in products %}
+              <tr>
+				{% if tmdqc_cart_image_status %}
+                <td class="text-center">{% if product.thumb %}
+                  <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-thumbnail" /></a>
+                  {% endif %}
+				</td>
+				{% endif %}
+				{% if tmdqc_cart_name_status %}
+						<td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a>
+						  {% if not product.stock %}
+						  <span class="text-danger">***</span>
+						  {% endif %}
+						  {% if product.option %}
+						  {% for option in product.option %}
+						  <br />
+						  <small>{{ option.name }}: {{ option.value }}</small>
+						  {% endfor %}
+						  {% endif %}
+						  {% if product.reward %}
+						  <br />
+						  <small>{{ product.reward }}</small>
+						  {% endif %}
+						  {% if product.recurring %}
+						  <br />
+						  <span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small>
+						  {% endif %}
+						  </td>
+					{% endif %}
+					{% if tmdqc_cart_model_status %}
+						<td class="text-left">{{ product.model }}</td>
+							{% endif %}
+							{% if tmdqc_cart_upc_status %}
+						<td class="text-left">{{ product.upc }}</td>
+							{% endif %}
+							{% if tmdqc_cart_ean_status %}
+						<td class="text-left">{{ product.ean }}</td>
+							{% endif %}
+							{% if tmdqc_cart_isbn_status %}
+						<td class="text-left">{{ product.isbn }}</td>
+						{% endif %}
+					{% if tmdqc_cart_qty_status %}
+						<td class="text-left"><div class="input-group btn-block" style="max-width: 	200px;">
+						<input type="text" name="quantity[{{ product.cart_id }}]" value="{{ product.quantity }}" size="1" class="form-control" />
+						<span class="input-group-btn">
+						<button type="submit" data-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
+						<button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="cartremove('{{ product.cart_id }}');"><i class="fa fa-times-circle"></i></button></span></div>
+						</td>
+					{% endif %}
+					{% if tmdqc_cart_unitprice_status %}
+					<td class="text-right">{{ product.price }}</td>
+									{% endif %}
+					<td class="text-right">{{ product.total }}</td>
+                </tr>
+              {% endfor %}
+             
+			 {% for voucher in vouchers %}
+              <tr>
+                <td></td>
+                <td class="text-left">{{ voucher.description }}</td>
+                <td class="text-left"></td>
+                <td class="text-left"><div class="input-group btn-block" style="max-width: 200px;">
+                    <input type="text" name="" value="1" size="1" disabled="disabled" class="form-control" />
+                    <span class="input-group-btn"><button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="voucher.remove('{{ voucher.key }}');"><i class="fa fa-times-circle"></i></button></span></div></td>
+                <td class="text-right">{{ voucher.amount }}</td>
+                <td class="text-right">{{ voucher.amount }}</td>
+              </tr> 
+              {% endfor %}
+            </tbody>
+          </table>		  
+		  {% if tmdqc_cart_coupan_status or tmdqc_cart_gift_status or permission_reward %}
+			<div class="panel-group" id="accordion">
+			<!--Coupan--->
+			<div class="col-sm-12 pull-right padd1">
+			{% if tmdqc_cart_coupan_status %}
+			<div class="form-group col-sm-6 padd1">
+				<div class="input-group"> 
+						<input type="text" name="coupon" value="{{ coupon }}" placeholder="{{ entry_coupon }}" id="input-coupon" class="form-control" />
+						<span class="input-group-btn">
+						<input type="button" value="{{ button_coupon }}" id="button-coupon" data-loading-text="{{ text_loading }}"  class="btn btn-primary" />
+						</span>
+				</div>
+			 </div>
+			 {% endif %}
+			 <!--coupan End--->
+			 <!--Voucher Start-->
+			 {% if tmdqc_cart_gift_status %}
+			 <div class="form-group col-sm-6 padd1">
+					<div class="input-group">
+						<input type="text" name="voucher" value="{{ voucher }}" placeholder="{{ entry_voucher }}" id="input-voucher" class="form-control" />
+						<span class="input-group-btn">
+							<input type="submit" value="{{ button_voucher }}" id="button-voucher" data-loading-text="{{ text_loading }}"  class="btn btn-primary" />
+						</span>
+					</div>
+			 </div>
+			  {% endif %}
+			 <!--Voucher End-->
+			 <!--Reward Start-->
+			 {% if permission_reward %}
+			 <div class="form-group">
+				 <div class="input-group">
+					<input type="text" name="reward" value="{{ reward }}" placeholder="{{ entry_reward }}" id="input-reward" class="form-control" />
+					<span class="input-group-btn">
+					<input type="submit" value="{{ button_reward }}" id="button-reward" data-loading-text="{{ text_loading }}"  class="btn btn-primary" />
+					</span>
+				 </div>
+			 </div>
+			 {% endif %}
+			 <!--Reward End-->
+			</div>
+			</div>
+			<br />
+			{% endif %}		
+        </div>
+      </form>
+	</div>	  
+			
+	{% if tmdqc_cart_total_status %}
+        
+			<div class="col-sm-4">
+			  <table class="table table-bordered">
+				<thead><tr><th colspan="2" class="text-center"><i class="fa fa-list" aria-hidden="true"></i> Total</th></tr></thead>
+				{% for total in totals %}
+					<tr>
+					  <td class="text-right"><strong>{{ total.title }}:</strong></td>
+					  <td class="text-right">{{ total.text }}</td>
+					</tr>
+					{% endfor %}
+			  </table>
+			</div>
+       
+	{% endif %}
+			
+<script>
+	function cartremove(key){
+		$.ajax({
+			url: 'index.php?route=checkout/cart/remove',
+			type: 'post',
+			data: 'key=' + key,
+			dataType: 'json',
+			beforeSend: function() {
+				$('#cart > button').button('loading');
+			},
+			complete: function() {
+				$('#cart > button').button('reset');
+			},			
+			success: function(json) {
+				setTimeout(function () {
+					$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+				}, 100);
+					
+				loadcart();
+					$('#cart > ul').load('index.php?route=common/cart/info ul li');
+				
+			}
+		});
+		}
+</script>

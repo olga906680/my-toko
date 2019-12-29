@@ -1,0 +1,3615 @@
+{{ header }}
+<script src="view/javascript/bootstrap/js/highlight.js"></script>
+<script src="view/javascript/bootstrap/js/bootstrap-switch.js"></script>
+<script src="view/javascript/bootstrap/js/main.js"></script>
+<link href="view/javascript/bootstrap/css/bootstrap-switch.css" rel="stylesheet"/>
+{{ column_left }}
+<div id="content">
+ <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+		{% if install_setting_permission %}
+		<a href="{{ install_setting }}" data-toggle="tooltip" title="{{ button_install_setting }}" class="btn btn-default"><i class="fa fa-plus"></i></a>
+		{% endif %}
+        <button type="submit" form="form-tmdqc" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+			</div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+	{% if success %}
+    <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+		</div>
+		<div class="panel-body">
+		<form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-tmdqc" class="form-horizontal">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab-layout" data-toggle="tab">{{ tab_layout }}</a></li>
+			<li><a href="#tab-setting" data-toggle="tab">{{ tab_setting }}</a></li>
+			<li><a href="#tab-shipping" data-toggle="tab">{{ tab_shipping }}</a></li>
+			<li><a href="#tab-payment" data-toggle="tab">{{ tab_payment }}</a></li>
+			<li><a href="#tab-customfeild" data-toggle="tab">{{ tab_custom }}</a></li>
+			<li><a href="#tab-google_tracking" data-toggle="tab">{{ tab_google_tracking }}</a></li>
+			<li><a href="#tab-color-picker" data-toggle="tab">{{ tab_color_picker }}</a></li>
+			<li><a href="#tab-title" data-toggle="tab">{{ tab_title }}</a></li>
+			
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active in" id="tab-layout">
+				 <div class="col-sm-2">
+						<h2>Short Code</h2>
+						<ul class="list-unstyled">
+							 <li>{cart}</li>
+							 <li>{login}</li>
+							 <li>{delivery_detail}</li>
+							 <li>{shipping_method}</li>
+							 <li>{payment_method}</li>
+							 <li>{confirmation}</li>
+						</ul>
+				 </div>
+				 <div class="col-sm-10">
+					<textarea cols="35" rows="10" name="tmdqc_layout_description" class="form-control">{{ tmdqc_layout_description }}</textarea>
+				 </div>
+				 <div class="col-sm-12">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="input-skipconfirm">{{ entry_skipconfirm }}</label>
+						<div class="col-sm-9">
+							{% if tmdqc_skipconfirm_status.status is not empty  %}
+								<label class="radio-inline">
+								<input checked="checked"  type="radio" name="tmdqc_skipconfirm_status[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+								</label>
+								{% else %}
+								<label class="radio-inline">
+								<input type="radio" name="tmdqc_skipconfirm_status[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+								</label>
+								{% endif %}
+							
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="input-triggerid">{{ entry_triggerid }}</label>
+						<div class="col-sm-9">
+							<label class="radio-inline">
+								<textarea class="form-control"  name="tmdqc_triggerid" cols="35" rows="4">{{ tmdqc_triggerid }}</textarea>
+							</label>
+						</div>
+					</div>
+				 </div>
+			</div>
+			<div class="tab-pane" id="tab-setting">
+				<div class="row">
+					<div class="col-sm-2">
+						<ul class="nav nav-pills nav-stacked" id="setting">
+							<li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
+							<li><a href="#tab-cart" data-toggle="tab">{{ tab_cart }}</a></li>
+							<li><a href="#tab-register" data-toggle="tab">{{ tab_register }}</a></li>
+							<li><a href="#tab-guest" data-toggle="tab">{{ tab_guest }}</a></li>
+							<li><a href="#tab-bill-address" data-toggle="tab">{{ tab_bill_address }}</a></li>
+							<li><a href="#tab-delivery-address" data-toggle="tab">{{ tab_delivery_address }}</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-10">
+					<div class="tab-content">
+					  <div class="tab-pane active" id="tab-general">
+					  <div class="form-group">
+							<label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+							<div class="col-sm-10">
+								<label class="radio-inline">
+									{% if tmdqc_status %}
+									<input type="radio" name="tmdqc_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+									{% else %}
+									<input type="radio" name="tmdqc_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+									{% endif %}
+								</label>
+							</div>
+						</div>
+							
+					<div class="form-group">
+					<label class="col-sm-2 control-label" for="input-country">{{ entry_country }} <span data-toggle="tooltip"  data-original-title="{{ help_country_default }}"></span></label>
+					<div class="col-sm-10">
+					<select name="tmdqc_country_id" id="input-country" class="form-control">
+					{% for country in countries %}
+					{% if country.country_id == tmdqc_country_id %}
+					<option value="{{ country.country_id }}" selected="selected">{{ country.name }}</option>
+					{% else %}
+					<option value="{{ country.country_id }}">{{ country.name }}</option>
+					{% endif %}
+					{% endfor %}
+					</select>
+					</div>
+					</div>
+					<div class="form-group">
+					<label class="col-sm-2 control-label" for="input-zone">{{ entry_zone }} <span data-toggle="tooltip"  data-original-title="{{ help_zone_default }}"></span></label>
+					<div class="col-sm-10">
+					<select name="tmdqc_zone_id" id="input-zone" class="form-control">
+					</select>
+					</div>
+					</div>
+					<div class="form-group">
+					<label class="col-sm-2 control-label" for="input-account-option">{{ entry_account_option }} <span data-toggle="tooltip"  data-original-title="{{ help_account_option }}"></span></label>
+					<div class="col-sm-10">
+					<select name="tmdqc_account_option" id="input-register-guest" class="form-control">
+					<option value="">{{ text_all }}</option>
+					<option value="register" {{ tmdqc_account_option=='register' ? 'selected="selected"' }}>{{ text_register }}</option>
+					<option value="guest" {{ tmdqc_account_option=='guest' ? 'selected="selected"' }}>{{ text_guest }}</option>
+					</select>
+					</div>
+					</div>
+					<div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-account"><span data-toggle="tooltip" title="{{ help_account }}">{{ entry_account }}</span></label>
+                  <div class="col-sm-4">
+                    <select name="tmdqc_account_id" id="input-account" class="form-control">
+                      <option value="0">{{ text_none }}</option>
+					{% for information in informations %}
+					{% if  information.information_id == tmdqc_account_id %}
+                      <option value="{{ information.information_id }}" selected="selected">{{ information.title }}</option>
+					{% else %}
+                      <option value="{{ information.information_id }}">{{ information.title }}</option>
+                     {% endif %}
+                    {% endfor %}
+                    </select>
+                  </div>
+				<label class="col-sm-2 control-label" for="input-account-auto-select">{{ entry_default_select }}</label>
+				<div class="col-sm-4">
+				{% if tmdqc_account_default_checked %}
+					<input type="radio" name="tmdqc_account_default_checked" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+					{% else %}
+					<input type="radio" name="tmdqc_account_default_checked" value="1" data-radio-all-off="true" class="switch-radio"  />
+				{% endif %}			
+				</div>
+                </div>
+				<div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-checkout"><span data-toggle="tooltip" title="{{ help_chkout }}">{{ entry_checkout }}</span></label>
+                  <div class="col-sm-4">
+                    <select name="tmdqc_checkout_id" id="input-checkout" class="form-control">
+                      <option value="0">{{ text_none }}</option>
+                      {% for information in informations %}
+                      {% if  information.information_id == tmdqc_checkout_id %}
+                      <option value="{{ information.information_id }}" selected="selected">{{ information.title }}</option>
+                      {% else %}
+                      <option value="{{ information.information_id }}">{{ information.title }}</option>
+                      {% endif %}
+                      {% endfor %}
+                    </select>
+                  </div>
+					<label class="col-sm-2 control-label" for="input-checkout-auto-select">{{ entry_default_select }}</label>
+					<div class="col-sm-4">
+					{% if tmdqc_checkout_default_checked %}
+					<input type="radio" name="tmdqc_checkout_default_checked" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+					{% else %}
+					<input type="radio" name="tmdqc_checkout_default_checked" value="1" data-radio-all-off="true" class="switch-radio"  />
+					{% endif %}
+					
+					</div>
+                </div>
+				<div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-customer-group">{{ entry_customer_group }}</label>
+                  <div class="col-sm-10">
+                    <select name="tmdqc_customer_group_id" id="input-customer-group" class="form-control">
+					{% for customer_group in customer_groups %}
+					{% if customer_group.customer_group_id == tmdqc_customer_group_id %}
+                      <option value="{{ customer_group.customer_group_id }}" selected="selected">{{ customer_group.name }}</option>
+                     {% else %}
+                      <option value="{{ customer_group.customer_group_id }}">{{ customer_group.name }}</option>
+                      {% endif %}
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+				</div>
+	<div class="tab-pane" id="tab-cart">
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-image" >{{ entry_image }} <span data-toggle="tooltip"  data-original-title="{{ help_image }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_image_status %}
+	<input type="radio" name="tmdqc_cart_image_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_image_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-name" >{{ entry_name }} <span data-toggle="tooltip"  data-original-title="{{ help_image }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_name_status %}
+	<input type="radio" name="tmdqc_cart_name_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_name_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-model" >{{ entry_model }} <span data-toggle="tooltip"  data-original-title="{{ help_image }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_model_status %}
+	<input type="radio" name="tmdqc_cart_model_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_model_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}	
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-ean" >{{ entry_ean }} <span data-toggle="tooltip"  data-original-title="{{ help_ean }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_ean_status %}
+	<input type="radio" name="tmdqc_cart_ean_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_ean_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}	
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-isbn" >{{ entry_isbn }} <span data-toggle="tooltip"  data-original-title="{{ help_isbn }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_isbn_status %}
+	<input type="radio" name="tmdqc_cart_isbn_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_isbn_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}	
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-isbn" >{{ entry_upc }} <span data-toggle="tooltip"  data-original-title="{{ help_upc }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_upc_status %}
+	<input type="radio" name="tmdqc_cart_upc_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_upc_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}	
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-qty" >{{ entry_qty }} <span data-toggle="tooltip"  data-original-title="{{ help_qty }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_qty_status %}
+	<input type="radio" name="tmdqc_cart_qty_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_qty_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}	
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-unit_price" >{{ entry_unit_price }} <span data-toggle="tooltip"  data-original-title="{{ help_unitprice }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_unitprice_status %}
+	<input type="radio" name="tmdqc_cart_unitprice_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_unitprice_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}	
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-qty" >{{ entry_total }} <span data-toggle="tooltip"  data-original-title="{{ help_total }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_total_status %}
+	<input type="radio" name="tmdqc_cart_total_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_total_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}	
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-coupan" >{{ entry_coupan }} <span data-toggle="tooltip"  data-original-title="{{ help_coupan }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_coupan_status %}
+	<input type="radio" name="tmdqc_cart_coupan_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_coupan_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-gift" >{{ entry_gift }} <span data-toggle="tooltip"  data-original-title="{{ help_gift }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_gift_status %}
+	<input type="radio" name="tmdqc_cart_gift_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_gift_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}
+	</label>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-taxes" >{{ entry_taxess }} <span data-toggle="tooltip"  data-original-title="{{ help_taxess }}"></span></label>
+	<div class="col-sm-10">
+	<label class="radio-inline">
+	{% if tmdqc_cart_reward_status %}
+	<input type="radio" name="tmdqc_cart_reward_status" value="1" data-radio-all-off="true" class="switch-radio"  checked="checked"/>
+	{% else %}
+	<input type="radio" name="tmdqc_cart_reward_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	{% endif %}
+	</label>
+	</div>
+	</div>
+	</div>
+	<div class="tab-pane" id="tab-register">
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-firstname">{{ entry_firstname }} <span data-toggle="tooltip"  data-original-title="{{ help_firstname }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	
+		{% if tmdqc_register_firstname.label[language.language_id] is not empty  %}		
+		
+		<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_firstname[label][{{ language.language_id }}]" value="{{ tmdqc_register_firstname.label[language.language_id] }}" />
+		{% else %}
+		
+		<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_firstname[label][{{ language.language_id }}]" value="{{ entry_firstname }}" />
+		{% endif %}
+	
+	{% endfor %}
+	</td>
+	
+	<td>
+	{% if tmdqc_register_firstname.required is not empty  %}	
+	
+	<label class="radio-inline">
+	<input checked="checked" type="radio" name="tmdqc_register_firstname[required]" value="1" data-radio-all-off="true" class="switch-radio" />
+	</label>
+	{% else %}
+	
+	<label class="radio-inline">
+	<input  type="radio" name="tmdqc_register_firstname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	
+	{% endif %}
+	</td>
+	
+	<td>
+	{% if tmdqc_register_firstname.status is not empty  %}	
+	
+	<label class="radio-inline">
+	<input checked="checked" type="radio" name="tmdqc_register_firstname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_firstname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_firstname[sort_order]" value="{{ tmdqc_register_firstname.sort_order ? tmdqc_register_firstname.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-lastname">{{ entry_lastname }} <span data-toggle="tooltip"  data-original-title="{{ help_lastname }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+		{% for language in languages %}
+		
+		{% if tmdqc_register_lastname.label[language.language_id] is not empty  %}			
+		<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_lastname[label][{{ language.language_id }}]" value="{{ tmdqc_register_lastname.label[language.language_id] }}" />
+		{% else %}
+		<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_lastname[label][{{ language.language_id }}]" value="{{ entry_lastname }}" />	
+		{% endif %}
+		{% endfor %}
+	</td>
+	
+	<td>
+	{% if tmdqc_register_lastname.required is not empty  %}	
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_lastname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_lastname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td>
+		{% if tmdqc_register_lastname.status is not empty  %}	
+		<label class="radio-inline">
+		<input checked="checked"  type="radio" name="tmdqc_register_lastname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+		</label>
+		{% else %}
+		<label class="radio-inline">
+		<input type="radio" name="tmdqc_register_lastname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+		</label>
+		{% endif %}
+	</td>
+	
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_lastname[sort_order]" value="{{ tmdqc_register_lastname.sort_order ? tmdqc_register_lastname.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-lastname">{{ entry_email }} <span data-toggle="tooltip"  data-original-title="{{ help_email }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+		{% if tmdqc_register_email.label[language.language_id] is not empty  %}			
+			<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_email[label][{{ language.language_id }}]" value="{{ tmdqc_register_email.label[language.language_id] }}" />
+			{% else %}
+			<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_email[label][{{ language.language_id }}]" value="{{ entry_email }}" />	
+		{% endif %}
+	{% endfor %}
+	</td>
+	<td>	
+		{% if tmdqc_register_email.required is not empty  %}	
+		<label class="radio-inline">
+		<input checked="checked"  type="radio" name="tmdqc_register_email[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+		</label>
+		{% else %}
+		<label class="radio-inline">
+		<input type="radio" name="tmdqc_register_email[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+		</label>
+		{% endif %}
+	</td>
+	<td>
+	
+	{% if tmdqc_register_email.status is not empty  %}	
+		<label class="radio-inline">
+		<input checked="checked"  type="radio" name="tmdqc_register_email[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+		</label>
+		{% else %}
+		<label class="radio-inline">
+		<input type="radio" name="tmdqc_register_email[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+		</label>
+		{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_email[sort_order]" value="{{ tmdqc_register_email.sort_order ? tmdqc_register_email.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-telephone">{{ entry_telephone }} <span data-toggle="tooltip"  data-original-title="{{ help_telephone }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+
+	{% if tmdqc_register_telephone.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_telephone[label][{{ language.language_id }}]" value="{{ tmdqc_register_telephone.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_telephone[label][{{ language.language_id }}]" value="{{ entry_telephone }}" />
+	{% endif %}
+	{% endfor %}	
+	</td>
+	
+	<td>
+	{% if tmdqc_register_telephone.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_telephone[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_telephone[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td>
+	{% if tmdqc_register_telephone.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_telephone[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_telephone[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_telephone[sort_order]" value="{{ tmdqc_register_telephone.sort_order ? tmdqc_register_telephone.sort_order }}"/></td>
+	
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>	
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-fax">{{ entry_fax }} <span data-toggle="tooltip"  data-original-title="{{ help_fax }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		
+	<td>
+	{% for language in languages %}
+		
+	{% if tmdqc_register_fax.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_fax[label][{{ language.language_id }}]" value="{{ tmdqc_register_fax.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_fax[label][{{ language.language_id }}]" value="{{ entry_fax }}" />
+	{% endif %}
+	{% endfor %}	
+	
+	</td>
+	
+	<td>
+	{% if tmdqc_register_fax.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_fax[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_fax[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td>
+	{% if tmdqc_register_fax.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_fax[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_fax[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	</td>
+	
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_fax[sort_order]" value="{{ tmdqc_register_fax.sort_order ? tmdqc_register_fax.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>									
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-company">{{ entry_company }} <span data-toggle="tooltip"  data-original-title="{{ help_company }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	
+	{% if tmdqc_register_company.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_company[label][{{ language.language_id }}]" value="{{ tmdqc_register_fax.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_company[label][{{ language.language_id }}]" value="{{ entry_company }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	
+	<td>
+	{% if tmdqc_register_company.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_company[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_company[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td>
+	{% if tmdqc_register_company.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_company[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_company[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_company[sort_order]" value="{{ tmdqc_register_company.sort_order ? tmdqc_register_company.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-address1">{{ entry_address1 }} <span data-toggle="tooltip"  data-original-title="{{ help_address1 }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>
+	<td>{{ entry_sort_order }}</td>		
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	
+	{% if tmdqc_register_address1.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_address1[label][{{ language.language_id }}]" value="{{ tmdqc_register_address1.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_address1[label][{{ language.language_id }}]" value="{{ entry_address1 }}" />
+	{% endif %}
+	{% endfor %}
+	
+	</td>
+	<td>
+	{% if tmdqc_register_address1.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_address1[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_address1[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_register_address1.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_address1[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_address1[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+		
+	</td>
+	
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_address1[sort_order]" value="{{ tmdqc_register_address1.sort_order ? tmdqc_register_address1.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-address2">{{ entry_address2 }} <span data-toggle="tooltip"  data-original-title="{{ help_address2 }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>
+	<td>{{ entry_sort_order }}</td>				
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_register_address2.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_address2[label][{{ language.language_id }}]" value="{{ tmdqc_register_address2.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_address2[label][{{ language.language_id }}]" value="{{ entry_address2 }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_register_address2.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_address2[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_address2[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	
+	<td>
+	{% if tmdqc_register_address2.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_address2[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_address2[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_address2[sort_order]" value="{{ tmdqc_register_address2.sort_order ? tmdqc_register_address2.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-city">{{ entry_city }} <span data-toggle="tooltip"  data-original-title="{{ help_city }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>
+	<td>{{ entry_sort_order }}</td>		
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_register_city.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_city[label][{{ language.language_id }}]" value="{{ tmdqc_register_city.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_city[label][{{ language.language_id }}]" value="{{ entry_city }}" />
+	{% endif %}
+	{% endfor %}	
+		
+	</td>
+	<td>
+	{% if tmdqc_register_city.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_city[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_city[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td>
+	{% if tmdqc_register_city.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_city[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_city[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_city[sort_order]" value="{{ tmdqc_register_city.sort_order ? tmdqc_register_city.sort_order }}"/></td>	
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-postal_code">{{ entry_postal_code }} <span data-toggle="tooltip"  data-original-title="{{ help_posta_code }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>
+	<td>{{ entry_sort_order }}</td>		
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_register_postal_code.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_postal_code[label][{{ language.language_id }}]" value="{{ tmdqc_register_postal_code.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_postal_code[label][{{ language.language_id }}]" value="{{ entry_postal_code }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_register_postal_code.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_postal_code[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_postal_code[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td>
+	{% if tmdqc_register_postal_code.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_postal_code[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_postal_code[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_postal_code[sort_order]" value="{{ tmdqc_register_postal_code.sort_order ? tmdqc_register_postal_code.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-country">{{ entry_country }} <span data-toggle="tooltip"  data-original-title="{{ help_country }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>
+	<td>{{ entry_sort_order }}</td>															
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_register_country.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_country[label][{{ language.language_id }}]" value="{{ tmdqc_register_country.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_country[label][{{ language.language_id }}]" value="{{ entry_country }}" />
+	{% endif %}
+	{% endfor %}
+		
+	</td>
+	<td>
+	{% if tmdqc_register_country.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_country[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_country[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td>
+	{% if tmdqc_register_country.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_country[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_country[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_country[sort_order]" value="{{ tmdqc_register_country.sort_order ? tmdqc_register_country.sort_order }}"/>
+	</td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-state">{{ entry_state }} <span data-toggle="tooltip"  data-original-title="{{ help_state }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_register_state.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_state[label][{{ language.language_id }}]" value="{{ tmdqc_register_state.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_state[label][{{ language.language_id }}]" value="{{ entry_state }}" />
+	{% endif %}
+	{% endfor %}	
+	</td>
+	<td>
+	{% if tmdqc_register_state.required  is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_state[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_state[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}		
+	
+	</td>
+	<td>
+	{% if tmdqc_register_state.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_state[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_state[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}		
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_state[sort_order]" value="{{ tmdqc_register_state.sort_order ? tmdqc_register_state.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-state">{{ entry_newsletter }} <span data-toggle="tooltip"  data-original-title="{{ help_newsletter }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>
+	<td>{{ entry_sort_order }}</td>		
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_register_newsletter.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_newsletter[label][{{ language.language_id }}]" value="{{ tmdqc_register_newsletter.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_newsletter[label][{{ language.language_id }}]" value="I wish to subscribe to the Your Store newsletter" />
+	{% endif %}
+	{% endfor %}	
+	</td>
+	<td>
+	{% if tmdqc_register_newsletter.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_newsletter[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_newsletter[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td>
+	{% if tmdqc_register_newsletter.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_newsletter[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_newsletter[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_newsletter[sort_order]" value="{{ tmdqc_register_newsletter.sort_order ? tmdqc_register_newsletter.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-password">{{ entry_password }} <span data-toggle="tooltip"  data-original-title="{{ help_password }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_register_password.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_password[label][{{ language.language_id }}]" value="{{ tmdqc_register_password.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_password[label][{{ language.language_id }}]" value="{{ entry_password }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_register_password.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_password[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_password[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td>
+	{% if tmdqc_register_password.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_password[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_password[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_password[sort_order]" value="{{ tmdqc_register_password.sort_order ? tmdqc_register_password.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-cpassword">{{ entry_cpassword }} <span data-toggle="tooltip"  data-original-title="{{ help_cpassword }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_register_cpassword.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_cpassword[label][{{ language.language_id }}]" value="{{ tmdqc_register_cpassword.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_register_cpassword[label][{{ language.language_id }}]" value="{{ entry_cpassword }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_register_cpassword.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_cpassword[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_cpassword[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td>
+	{% if tmdqc_register_cpassword.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_register_cpassword[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_register_cpassword[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_register_cpassword[sort_order]" value="{{ tmdqc_register_cpassword.sort_order ? tmdqc_register_cpassword.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="tab-pane" id="tab-guest">
+	<div class="form-group">
+	<label class="col-sm-2 control-label" for="input-guest">{{ entry_guest }} <span data-toggle="tooltip"  data-original-title="{{ help_guest }}"></span></label>
+	<div class="col-sm-10">
+	{% if tmdqc_guest_status %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_status" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-firstname">{{ entry_firstname }} <span data-toggle="tooltip"  data-original-title="{{ help_firstname }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_firstname.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_firstname[label][{{ language.language_id }}]" value="{{ tmdqc_guest_firstname.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_firstname[label][{{ language.language_id }}]" value="{{ entry_firstname }}" />
+	{% endif %}
+	{% endfor %}
+	
+	</td>
+	<td>
+	{% if tmdqc_guest_firstname.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_firstname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_firstname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td>
+	{% if tmdqc_guest_firstname.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_firstname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_firstname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_firstname[sort_order]" value="{{ tmdqc_guest_firstname.sort_order ? tmdqc_guest_firstname.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-lastname">{{ entry_lastname }}<span data-toggle="tooltip"  data-original-title="{{ help_lastname }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_lastname.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_lastname[label][{{ language.language_id }}]" value="{{ tmdqc_guest_lastname.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_lastname[label][{{ language.language_id }}]" value="{{ entry_lastname }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_guest_lastname.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_lastname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_lastname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td>
+	{% if tmdqc_guest_lastname.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_lastname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_lastname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_lastname[sort_order]" value="{{ tmdqc_guest_lastname.sort_order ? tmdqc_guest_lastname.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-lastname">{{ entry_email }} <span data-toggle="tooltip"  data-original-title="{{ help_email }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_email.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_email[label][{{ language.language_id }}]" value="{{ tmdqc_guest_email.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_email[label][{{ language.language_id }}]" value="{{ entry_email }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_guest_email.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_email[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_email[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td>
+	{% if tmdqc_guest_email.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_email[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_email[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_email[sort_order]" value="{{ tmdqc_guest_email.sort_order ? tmdqc_guest_email.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-telephone">{{ entry_telephone }} <span data-toggle="tooltip"  data-original-title="{{ help_telephone }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_telephone.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_telephone[label][{{ language.language_id }}]" value="{{ tmdqc_guest_telephone.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_telephone[label][{{ language.language_id }}]" value="{{ entry_telephone }}" />
+	{% endif %}
+	{% endfor %}
+
+	</td>
+	<td>
+	{% if tmdqc_guest_telephone.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_telephone[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_telephone[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td>
+	{% if tmdqc_guest_telephone.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_telephone[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_telephone[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_telephone[sort_order]" value="{{ tmdqc_guest_telephone.sort_order ? tmdqc_guest_telephone.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>	
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-fax">{{ entry_fax }} <span data-toggle="tooltip"  data-original-title="{{ help_fax }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_fax.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_fax[label][{{ language.language_id }}]" value="{{ tmdqc_guest_fax.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_fax[label][{{ language.language_id }}]" value="{{ entry_fax }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_guest_fax.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_fax[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_fax[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_guest_fax.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_fax[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_fax[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_fax[sort_order]" value="{{ tmdqc_guest_fax.sort_order ? tmdqc_guest_fax.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>									
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-fax">{{ entry_company }} <span data-toggle="tooltip"  data-original-title="{{ help_company }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_company.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_company[label][{{ language.language_id }}]" value="{{ tmdqc_guest_company.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_company[label][{{ language.language_id }}]" value="{{ entry_company }}" />
+	{% endif %}
+	{% endfor %}
+	
+	</td>
+	<td>
+	{% if tmdqc_guest_company.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_company[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_company[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_guest_company.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_company[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_company[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_company[sort_order]" value="{{ tmdqc_guest_company.sort_order ? tmdqc_guest_company.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-address1">{{ entry_address1 }} <span data-toggle="tooltip"  data-original-title="{{ help_address1 }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>		
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_address1.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_address1[label][{{ language.language_id }}]" value="{{ tmdqc_guest_address1.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_address1[label][{{ language.language_id }}]" value="{{ entry_address1 }}" />
+	{% endif %}
+	{% endfor %}
+	
+	</td>
+	<td>
+	{% if tmdqc_guest_address1.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_address1[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_address1[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td>
+	{% if tmdqc_guest_address1.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_address1[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_address1[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_address1[sort_order]" value="{{ tmdqc_guest_address1.sort_order ? tmdqc_guest_address1.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-address2">{{ entry_address2 }} <span data-toggle="tooltip"  data-original-title="{{ help_address2 }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>				
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_address2.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_address2[label][{{ language.language_id }}]" value="{{ tmdqc_guest_address2.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_address2[label][{{ language.language_id }}]" value="{{ entry_address2 }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_guest_address2.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_address2[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_address2[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td>
+	{% if tmdqc_guest_address2.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_address2[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_address2[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_address2[sort_order]" value="{{ tmdqc_guest_address2.sort_order ? tmdqc_guest_address2.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-city">{{ entry_city }} <span data-toggle="tooltip"  data-original-title="{{ help_city }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>		
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_city.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_city[label][{{ language.language_id }}]" value="{{ tmdqc_guest_city.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_city[label][{{ language.language_id }}]" value="{{ entry_city }}" />
+	{% endif %}
+	{% endfor %}
+	
+	</td>
+	<td>
+	{% if tmdqc_guest_city.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_city[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_city[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	
+	<td>
+	{% if tmdqc_guest_city.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_city[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_city[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_city[sort_order]" value="{{ tmdqc_guest_city.sort_order ? tmdqc_guest_city.sort_order }}"/></td>	
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-postal_code">{{ entry_postal_code }} <span data-toggle="tooltip"  data-original-title="{{ entry_postal_code }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>		
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_postal_code.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_postal_code[label][{{ language.language_id }}]" value="{{ tmdqc_guest_postal_code.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_postal_code[label][{{ language.language_id }}]" value="{{ entry_postal_code }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_guest_postal_code.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_postal_code[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_postal_code[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td>
+	{% if tmdqc_guest_postal_code.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_postal_code[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_postal_code[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_postal_code[sort_order]" value="{{ tmdqc_guest_postal_code.sort_order ? tmdqc_guest_postal_code.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-country">{{ entry_country }} <span data-toggle="tooltip"  data-original-title="{{ help_country }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>															
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_country.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_country[label][{{ language.language_id }}]" value="{{ tmdqc_guest_country.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_country[label][{{ language.language_id }}]" value="{{ entry_country }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_guest_country.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_country[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_country[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	</td>
+	<td>
+	{% if tmdqc_guest_country.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_country[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_country[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	</td>
+
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_country[sort_order]" value="{{ tmdqc_guest_country.sort_order ? tmdqc_guest_country.sort_order }}"/>
+	</td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-state">{{ entry_state }} <span data-toggle="tooltip"  data-original-title="{{ help_state }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_guest_state.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_state[label][{{ language.language_id }}]" value="{{ tmdqc_guest_state.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_guest_state[label][{{ language.language_id }}]" value="{{ entry_state }}" />
+	{% endif %}
+	{% endfor %}
+	
+	</td>
+	
+	<td>
+	{% if tmdqc_guest_state.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_state[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_state[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_guest_state.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_guest_state[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_guest_state[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_guest_state[sort_order]" value="{{ tmdqc_guest_state.sort_order ? tmdqc_guest_state.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="tab-pane" id="tab-bill-address">
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-firstname">{{ entry_firstname }} <span data-toggle="tooltip"  data-original-title="{{ help_firstname }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_billaddress_firstname.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_firstname[label][{{ language.language_id }}]" value="{{ tmdqc_billaddress_firstname.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_firstname[label][{{ language.language_id }}]" value="{{ entry_firstname }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	
+	
+	<td>
+	{% if tmdqc_billaddress_firstname.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_firstname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_firstname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_billaddress_firstname.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_firstname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_firstname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_billaddress_firstname[sort_order]" value="{{ tmdqc_billaddress_firstname.sort_order ? tmdqc_billaddress_firstname.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-lastname">{{ entry_lastname }} <span data-toggle="tooltip"  data-original-title="{{ help_lastname }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_billaddress_lastname.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_lastname[label][{{ language.language_id }}]" value="{{ tmdqc_billaddress_lastname.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_lastname[label][{{ language.language_id }}]" value="{{ entry_lastname }}" />
+	{% endif %}
+	{% endfor %}
+	
+	</td>
+	
+	<td>
+	{% if tmdqc_billaddress_lastname.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_lastname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_lastname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_billaddress_lastname.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_lastname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_lastname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_billaddress_lastname[sort_order]" value="{{ tmdqc_billaddress_lastname.sort_order ? tmdqc_billaddress_lastname.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-company">{{ entry_company }} <span data-toggle="tooltip"  data-original-title="{{ help_company }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_billaddress_company.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_company[label][{{ language.language_id }}]" value="{{ tmdqc_billaddress_company.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_company[label][{{ language.language_id }}]" value="{{ entry_company }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+
+	<td>
+	{% if tmdqc_billaddress_company.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_company[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_company[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+		<td>
+	{% if tmdqc_billaddress_company.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_company[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_company[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_billaddress_company[sort_order]" value="{{ tmdqc_billaddress_company.sort_order ? tmdqc_billaddress_company.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-address1">{{ entry_address1 }} <span data-toggle="tooltip"  data-original-title="{{ help_address1 }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>															
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_billaddress_address1.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_address1[label][{{ language.language_id }}]" value="{{ tmdqc_billaddress_address1.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_address1[label][{{ language.language_id }}]" value="{{ entry_address1 }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	
+	<td>
+	{% if tmdqc_billaddress_address1.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_address1[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_address1[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_billaddress_address1.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_address1[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_address1[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_billaddress_address1[sort_order]" value="{{ tmdqc_billaddress_address1.sort_order ? tmdqc_billaddress_address1.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-address2">{{ entry_address2 }} <span data-toggle="tooltip"  data-original-title="{{ help_address2 }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_billaddress_address2.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_address2[label][{{ language.language_id }}]" value="{{ tmdqc_billaddress_address2.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_address2[label][{{ language.language_id }}]" value="{{ entry_address2 }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	
+	<td>
+	{% if tmdqc_billaddress_address2.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_address2[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_address2[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_billaddress_address2.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_address2[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_address2[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_billaddress_address2[sort_order]" value="{{ tmdqc_billaddress_address2.sort_order ? tmdqc_billaddress_address2.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-city">{{ entry_city }} <span data-toggle="tooltip"  data-original-title="{{ help_city }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>		
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_billaddress_city.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_city[label][{{ language.language_id }}]" value="{{ tmdqc_billaddress_city.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_city[label][{{ language.language_id }}]" value="{{ entry_city }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_billaddress_city.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_city[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_city[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_billaddress_city.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_city[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_city[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_billaddress_city[sort_order]" value="{{ tmdqc_billaddress_city.sort_order ? tmdqc_billaddress_city.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-postal_code">{{ entry_postal_code }} <span data-toggle="tooltip"  data-original-title="{{ help_postal_code }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_billaddress_postal_code.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_postal_code[label][{{ language.language_id }}]" value="{{ tmdqc_billaddress_postal_code.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_postal_code[label][{{ language.language_id }}]" value="{{ entry_postal_code }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	
+	<td>
+	{% if tmdqc_billaddress_postal_code.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_postal_code[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_postal_code[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_billaddress_postal_code.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_postal_code[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_postal_code[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_billaddress_postal_code[sort_order]" value="{{ tmdqc_billaddress_postal_code.sort_order ? tmdqc_billaddress_postal_code.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-country">{{ entry_country }} <span data-toggle="tooltip"  data-original-title="{{ help_country }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_billaddress_country.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_country[label][{{ language.language_id }}]" value="{{ tmdqc_billaddress_country.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_country[label][{{ language.language_id }}]" value="{{ entry_country }}" />
+	{% endif %}
+	{% endfor %}
+	
+	</td>
+	
+	<td>
+	{% if tmdqc_billaddress_country.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_country[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_country[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_billaddress_country.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_country[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_country[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_billaddress_country[sort_order]" value="{{ tmdqc_billaddress_country.sort_order ? tmdqc_billaddress_country.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-state">{{ entry_state }} <span data-toggle="tooltip"  data-original-title="{{ help_state }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_billaddress_state.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_state[label][{{ language.language_id }}]" value="{{ tmdqc_billaddress_state.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_billaddress_state[label][{{ language.language_id }}]" value="{{ entry_state }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	
+	<td>
+	{% if tmdqc_billaddress_state.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_state[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_state[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+
+	</td>
+	<td>
+	{% if tmdqc_billaddress_state.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_billaddress_state[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_billaddress_state[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_billaddress_state[sort_order]" value="{{ tmdqc_billaddress_state.sort_order ? tmdqc_billaddress_state.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="tab-pane" id="tab-delivery-address">
+	<div class="form-group">
+	<label class="col-sm-2 control-label" for="input-delivery-address">{{ entry_delivery_address_status }} <span data-toggle="tooltip"  data-original-title="{{ help_deliveryaddress }}"></span></label>
+	<div class="col-sm-10">
+		{% if tmdqc_deliveryaddress_status  %}				
+		<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_status" value="1" data-radio-all-off="true" class="switch-radio"  />		
+		{% else %}		
+		<input type="radio" name="tmdqc_deliveryaddress_status" value="1" data-radio-all-off="true" class="switch-radio"  />		
+		{% endif %}
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-firstname">{{ entry_firstname }} <span data-toggle="tooltip"  data-original-title="{{ help_firstname }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_deliveryaddress_firstname.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_firstname[label][{{ language.language_id }}]" value="{{ tmdqc_deliveryaddress_firstname.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_firstname[label][{{ language.language_id }}]" value="{{ entry_firstname }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	
+	<td>
+	{% if tmdqc_deliveryaddress_firstname.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_firstname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_firstname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_firstname.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_firstname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_firstname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+
+	</label>
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_deliveryaddress_firstname[sort_order]" value="{{ tmdqc_deliveryaddress_firstname.sort_order ? tmdqc_deliveryaddress_firstname.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-lastname">{{ entry_lastname }} <span data-toggle="tooltip"  data-original-title="{{ help_lastname }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_deliveryaddress_lastname.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_lastname[label][{{ language.language_id }}]" value="{{ tmdqc_deliveryaddress_lastname.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_lastname[label][{{ language.language_id }}]" value="{{ entry_lastname }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	
+	<td>
+	{% if tmdqc_deliveryaddress_lastname.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_lastname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_lastname[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_lastname.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_lastname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_lastname[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_deliveryaddress_lastname[sort_order]" value="{{ tmdqc_deliveryaddress_lastname.sort_order ? tmdqc_deliveryaddress_lastname.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-company">{{ entry_company }} <span data-toggle="tooltip"  data-original-title="{{ help_company }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>															
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_deliveryaddress_company.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_company[label][{{ language.language_id }}]" value="{{ tmdqc_deliveryaddress_company.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_company[label][{{ language.language_id }}]" value="{{ entry_company }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_company.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_company[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_company[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_company.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_company[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_company[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_deliveryaddress_company[sort_order]" value="{{ tmdqc_deliveryaddress_company.sort_order ? tmdqc_deliveryaddress_company.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-address1">{{ entry_address1 }} <span data-toggle="tooltip"  data-original-title="{{ help_address1 }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>															
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_deliveryaddress_address1.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_address1[label][{{ language.language_id }}]" value="{{ tmdqc_deliveryaddress_address1.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_address1[label][{{ language.language_id }}]" value="{{ entry_address1 }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_address1.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_address1[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_address1[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_address1.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_address1[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_address1[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_deliveryaddress_address1[sort_order]" value="{{ tmdqc_deliveryaddress_address1.sort_order ? tmdqc_deliveryaddress_address1.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-address2">{{ entry_address2 }} <span data-toggle="tooltip"  data-original-title="{{ help_address2 }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>															
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_deliveryaddress_address2.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_address2[label][{{ language.language_id }}]" value="{{ tmdqc_deliveryaddress_address2.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_address2[label][{{ language.language_id }}]" value="{{ entry_address2 }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_address2.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_address2[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_address2[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_address2.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_address2[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_address2[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_deliveryaddress_address2[sort_order]" value="{{ tmdqc_deliveryaddress_address2.sort_order ? tmdqc_deliveryaddress_address2.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-city">{{ entry_city }} <span data-toggle="tooltip"  data-original-title="{{ help_city }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>															
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_deliveryaddress_city.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_city[label][{{ language.language_id }}]" value="{{ tmdqc_deliveryaddress_city.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_city[label][{{ language.language_id }}]" value="{{ entry_city }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_city.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_city[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_city[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_city.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_city[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_city[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_deliveryaddress_city[sort_order]" value="{{ tmdqc_deliveryaddress_city.sort_order ? tmdqc_deliveryaddress_city.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-postal_code">{{ entry_postal_code }} <span data-toggle="tooltip"  data-original-title="{{ help_postal_code }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>															
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_deliveryaddress_postal_code.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_postal_code[label][{{ language.language_id }}]" value="{{ tmdqc_deliveryaddress_postal_code.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_postal_code[label][{{ language.language_id }}]" value="{{ entry_postal_code }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_postal_code.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_postal_code[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_postal_code[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_postal_code.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_postal_code[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_postal_code[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_deliveryaddress_postal_code[sort_order]" value="{{ tmdqc_deliveryaddress_postal_code.sort_order ? tmdqc_deliveryaddress_postal_code.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-country">{{ entry_country }} <span data-toggle="tooltip"  data-original-title="{{ help_country }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_deliveryaddress_country.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_country[label][{{ language.language_id }}]" value="{{ tmdqc_deliveryaddress_country.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_country[label][{{ language.language_id }}]" value="{{ entry_country }}" />
+	{% endif %}
+	{% endfor %}
+	
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_country.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_country[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_country[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_country.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_country[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_country[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_deliveryaddress_country[sort_order]" value="{{ tmdqc_deliveryaddress_country.sort_order ? tmdqc_deliveryaddress_country.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-state">{{ entry_state }} <span data-toggle="tooltip"  data-original-title="{{ help_state }}"></span></label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_required }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	{% for language in languages %}
+	{% if tmdqc_deliveryaddress_state.label[language.language_id] is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_state[label][{{ language.language_id }}]" value="{{ tmdqc_deliveryaddress_state.label[language.language_id] }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_deliveryaddress_state[label][{{ language.language_id }}]" value="{{ entry_state }}" />
+	{% endif %}
+	{% endfor %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_state.required is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_state[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_state[required]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td>
+	{% if tmdqc_deliveryaddress_state.status is not empty  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_deliveryaddress_state[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_deliveryaddress_state[status]" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</td>
+	<td><input type="text" size="2" class="form-control" name="tmdqc_deliveryaddress_state[sort_order]" value="{{ tmdqc_deliveryaddress_state.sort_order ? tmdqc_deliveryaddress_state.sort_order }}"/></td>
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="tab-pane" id="tab-shipping">
+	<div class="form-group">
+	<label class="col-sm-2 control-label"  for="input-shipping_label" >{{ entry_shipping_label }} </label>
+	<div class="col-sm-10">
+	{% if tmdqc_shipping_label  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_shipping_label" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_shipping_label" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}
+	</div>
+	</div>
+	<div class="form-group">
+	<label class="col-sm-2 control-label" for="input-shipping-comment">{{ entry_shipping_comment }}</label>
+	<div class="col-sm-10">
+	{% if tmdqc_shipping_comment  %}
+	<label class="radio-inline">
+	<input checked="checked"  type="radio" name="tmdqc_shipping_comment" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% else %}
+	<label class="radio-inline">
+	<input type="radio" name="tmdqc_shipping_comment" value="1" data-radio-all-off="true" class="switch-radio"  />
+	</label>
+	{% endif %}	
+	</div>
+	</div>
+	{% for shipping in shippings %}
+	<div class="form-group">
+	<label class="col-sm-2 control-label" for="input-{{ shipping.code }}">{{ shipping.heading }}</label>
+	<div class="col-sm-10">
+	<div class="col-sm-12 table-responsive">
+	<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+	<td>{{ entry_icon }}</td>	
+	<td>{{ entry_label }}</td>	
+	<td>{{ entry_status }}</td>	
+	<td>{{ entry_sort_order }}</td>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+
+	<td>	
+	{% for language in languages %}
+	
+	<div class="col-sm-10">
+	{% if tmdqc_shipping_thum[shipping.code][language.language_id] is not empty  %}
+
+	<a href="" id="thumb-{{ shipping.code }}-{{ language.language_id }}" data-toggle="image" class="img-thumbnail">	
+	<img src="{{ tmdqc_shipping_thum[shipping.code][language.language_id] }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+	{% else %}	
+	<a href="" id="thumb-{{ shipping.code }}-{{ language.language_id }}" data-toggle="image" class="img-thumbnail">
+	<img src="{{ placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+	{% endif %}
+	
+	{% if tmdqc_shipping_admin[shipping.code].language[language.language_id].image is not empty %}
+	<input type="hidden" name="tmdqc_{{ shipping.code }}[{{ language.language_id }}][image]" value="{{ tmdqc_shipping_admin.shipping[code].language[language.language_id].image }}" id="input-image-{{ shipping.code }}-{{ language.language_id }}" />
+	{% else %}
+	<input type="hidden" name="tmdqc_{{ shipping.code }}[{{ language.language_id }}][image]" value="" id="input-image-{{ shipping.code }}-{{ language.language_id }}" />
+	{% endif %}
+	
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />
+	</div>
+	{% endfor %}
+	</td>
+	
+	<td>
+	{% for language in languages %}
+	
+	{% if tmdqc_shipping_admin[shipping.code].language[language.language_id].label is not empty  %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />
+	<input class="form-control" type="text" name="tmdqc_{{ shipping.code }}[{{ language.language_id }}][label]" value="{{ tmdqc_shipping_admin[shipping.code].language[language.language_id].label }}" />
+	{% else %}
+	<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input   class="form-control" type="text" name="tmdqc_{{ shipping.code }}[{{ language.language_id }}][label]" value="{{ shipping.heading }}" />
+	{% endif %}
+	</td>
+	
+	{% if tmdqc_shipping_admin[shipping.code].status is not empty  %}
+	<td>{{ tmdqc_shipping_admin[shipping.code].status }}</td>
+	{% else %}
+	<td>{{ text_disabled }}</td>
+	{% endif %}
+	
+	{% if tmdqc_shipping_admin[shipping.code].sort_order is not empty  %}
+	<td>{{ tmdqc_shipping_admin[shipping.code].sort_order }}</td>
+	{% else %}
+	<td>0</td>
+	{% endif %}
+	
+	{% endfor %}
+	
+	
+	</tr>
+	</tbody>
+	</table>
+	</div>
+	</div> 
+	</div>
+	{% endfor %}
+	</div>
+	<div class="tab-pane" id="tab-payment">
+		<div class="form-group">
+				<label class="col-sm-2 control-label"  for="input-payment_label" >{{ entry_payment_label }} </label>
+				<div class="col-sm-10">
+					{% if tmdqc_payment_label  %}
+					<label class="radio-inline">
+					<input checked="checked"  type="radio" name="tmdqc_payment_label" value="1" data-radio-all-off="true" class="switch-radio"  />
+					</label>
+					{% else %}
+					<label class="radio-inline">
+					<input type="radio" name="tmdqc_payment_label" value="1" data-radio-all-off="true" class="switch-radio"  />
+					</label>
+					{% endif %}							
+				</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="input-payment-comment">{{ entry_payment_comment }}</label>
+			<div class="col-sm-10">
+				{% if tmdqc_payment_comment  %}
+				<label class="radio-inline">
+				<input checked="checked"  type="radio" name="tmdqc_payment_comment" value="1" data-radio-all-off="true" class="switch-radio"  />
+				</label>
+				{% else %}
+				<label class="radio-inline">
+				<input type="radio" name="tmdqc_payment_comment" value="1" data-radio-all-off="true" class="switch-radio"  />
+				</label>
+				{% endif %}
+			</div>
+		</div>	
+		{% for payment in payments %}
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="input-{{ payment.code }}">{{ payment.heading }}</label>
+			<div class="col-sm-10">
+				<div class="col-sm-12 table-responsive">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<td>{{ entry_icon }}</td>	
+								<td>{{ entry_label }}</td>	
+								<td>{{ entry_status }}</td>	
+								<td>{{ entry_sort_order }}</td>	
+							</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>	
+							{% for language in languages %}
+							
+							<div class="col-sm-10">
+							{% if tmdqc_payment_thum[payment.code][language.language_id] is not empty  %}
+
+							<a href="" id="thumb-{{ payment.code }}-{{ language.language_id }}" data-toggle="image" class="img-thumbnail">	
+							<img src="{{ tmdqc_payment_thum[payment.code][language.language_id] }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+							{% else %}	
+							<a href="" id="thumb-{{ payment.code }}-{{ language.language_id }}" data-toggle="image" class="img-thumbnail">
+							<img src="{{ placeholder }}" alt="" title="" data-placeholder="{{ placeholder }}" /></a>
+							{% endif %}
+							
+							{% if tmdqc_payment_admin[payment.code].language[language.language_id].image is not empty %}
+							<input type="hidden" name="tmdqc_{{ payment.code }}[{{ language.language_id }}][image]" value="{{ tmdqc_payment_admin.payment[code].language[language.language_id].image }}" id="input-image-{{ payment.code }}-{{ language.language_id }}" />
+							{% else %}
+							<input type="hidden" name="tmdqc_{{ payment.code }}[{{ language.language_id }}][image]" value="" id="input-image-{{ payment.code }}-{{ language.language_id }}" />
+							{% endif %}
+							
+							<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />
+							</div>
+							{% endfor %}
+							</td>
+							
+							<td>
+							{% for language in languages %}
+							
+							{% if tmdqc_payment_admin[payment.code].language[language.language_id].label is not empty  %}
+							<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />
+							<input class="form-control" type="text" name="tmdqc_{{ payment.code }}[{{ language.language_id }}][label]" value="{{ tmdqc_payment_admin[payment.code].language[language.language_id].label }}" />
+							{% else %}
+							<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input   class="form-control" type="text" name="tmdqc_{{ payment.code }}[{{ language.language_id }}][label]" value="{{ payment.heading }}" />
+							{% endif %}
+							</td>
+								
+							{% if tmdqc_payment_admin[payment.code].status is not empty  %}
+							
+							{% set status = tmdqc_payment_admin[payment.code].status %}	
+							{% else %}
+							{% set status = '' %}
+							
+							{% endif %}
+							
+							<td>{{ status }}</td>
+							
+							{% if tmdqc_payment_admin[payment.code].sort_order is not empty  %}
+							<td>{{ tmdqc_payment_admin[payment.code].sort_order }}</td>
+							{% else %}
+							<td>0</td>
+							{% endif %}
+							
+							{% endfor %}
+							
+							
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div> 
+		</div>
+	 {% endfor %}
+	</div>
+			
+			<div id="tab-customfeild" class="tab-pane">
+					<div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <td class="text-left">{{ column_name }}</td>
+                  <td class="text-left">{{ column_location }}</td>
+                  <td class="text-left">{{ column_type }}</td>
+                  <td class="text-left">{{ column_sort_order }}</td>
+                </tr>
+              </thead>
+              <tbody>
+                {% if custom_fields %}
+                {% for custom_field in custom_fields %}
+                <tr>
+                  <td class="text-left">{{ custom_field.name }}</td>
+                  <td class="text-left">{{ custom_field.location }}</td>
+                  <td class="text-left">{{ custom_field.type }}</td>
+                  <td class="text-left"><input class="form-control" name="tmdqc_custom_sort_oder[{{ custom_field.custom_field_id }}]" type="text" size="2" value="{{ tmdqc_custom_sort_oder[custom_field.custom_field_id] ? tmdqc_custom_sort_oder[custom_field.custom_field_id] : custom_field.sort_order }}"/></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                  <td class="text-center" colspan="6">{{ text_no_results }}</td>
+                </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+			</div>
+			<div id="tab-google_tracking" class="tab-pane">
+				<div class="form-group">
+					 <label class="col-sm-2 control-label">{{ entry_google_tracking }}</label>
+					 <div class="col-sm-10">
+							<textarea class="form-control" style="width: 919px; height: 399px;" name="tmdqc_trackingcode" cols="35" rows="4">{{ tmdqc_trackingcode }}</textarea>
+					 </div>
+				</div>
+			</div>
+			<div class="tab-pane" id="tab-color-picker">
+				<fieldset>
+					<legend>{{ text_main_content }}</legend>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="input-content_background">{{ entry_content_background }}</label>
+					<div class="col-sm-5">
+							<input type="text" class="form-control color-picker"  id="input-content_background" name="tmdqc_content_background"  value="{{ tmdqc_content_background }}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="input-content_heading_color">{{ entry_content_heading_color }}</label>
+					<div class="col-sm-5">
+							<input type="text" class="form-control color-picker" id="input-content_heading_color" name="tmdqc_content_heading_color"  value="{{ tmdqc_content_heading_color }}" />
+					</div>
+				</div>
+				</fieldset>
+				<fieldset>
+					<legend>{{ text_sub_content }}</legend>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-block_heading_background">{{ entry_block_heading_background }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-block_heading_background" name="tmdqc_block_heading_background" value="{{ tmdqc_block_heading_background }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-block_heading_border">{{ entry_block_heading_border }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-block_heading_border" name="tmdqc_block_heading_border" value="{{ tmdqc_block_heading_border }}" />
+						</div>
+					</div>
+				
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-sub_content_background">{{ entry_sub_content_background }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-sub_content_background" name="tmdqc_sub_content_background" value="{{ tmdqc_sub_content_background }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-sub_content_border">{{ entry_sub_content_border }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-sub_content_border" name="tmdqc_sub_content_border" value="{{ tmdqc_sub_content_border }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-block_heading_background">{{ entry_logintextcolor }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-logintextcolor" name="tmdqc_logintextcolor" value="{{ tmdqc_logintextcolor }}" />
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>{{ text_shopping_cart }}</legend>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-cart_heading_color">{{ entry_cart_heading_color }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-cart_heading_color" name="tmdqc_cart_heading_color"  value="{{ tmdqc_cart_heading_color }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-cart_heading_background">{{ entry_cart_heading_background }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-cart_heading_background" name="tmdqc_cart_heading_background"  value="{{ tmdqc_cart_heading_background }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-cart_table_color">{{ entry_cart_table_color }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-cart_table_color" name="tmdqc_cart_table_color"  value="{{ tmdqc_cart_table_color }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-cart_table_background">{{ entry_cart_table_background }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-cart_table_background" name="tmdqc_cart_table_background"  value="{{ tmdqc_cart_table_background }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-cart_table_border">{{ entry_cart_table_border }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-cart_table_border" name="tmdqc_cart_table_border" value="{{ tmdqc_cart_table_border }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-block_heading_color">{{ entry_block_heading_color }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-block_heading_color" name="tmdqc_block_heading_color" value="{{ tmdqc_block_heading_color }}" />
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>{{ text_buttons }}</legend>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-primary_button_color">{{ entry_primary_button_color }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-primary_button_color" name="tmdqc_primary_button_color" value="{{ tmdqc_primary_button_color }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-primary_button_background">{{ entry_primary_button_background }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-primary_button_background" name="tmdqc_primary_button_background" value="{{ tmdqc_primary_button_background }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-primary_button_background_hover">{{ entry_primary_button_background_hover }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-primary_button_background_hover" name="tmdqc_primary_button_background_hover" value="{{ tmdqc_primary_button_background_hover }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-primary_button_border">{{ entry_primary_button_border }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-primary_button_border" name="tmdqc_primary_button_border" value="{{ tmdqc_primary_button_border }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-danger_button_color">{{ entry_danger_button_color }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-danger_button_color" name="tmdqc_danger_button_color" value="{{ tmdqc_danger_button_color }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-danger_button_background">{{ entry_danger_button_background }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-danger_button_background" name="tmdqc_danger_button_background" value="{{ tmdqc_danger_button_background }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-danger_button_background_hover">{{ entry_danger_button_background_hover }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-danger_button_background_hover" name="tmdqc_danger_button_background_hover" value="{{ tmdqc_danger_button_background_hover }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-danger_button_border">{{ entry_danger_button_border }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-danger_button_border" name="tmdqc_danger_button_border" value="{{ tmdqc_danger_button_border }}" />
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>{{ text_input_labels }}</legend>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-input_color">{{ entry_input_color }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-input_color" name="tmdqc_input_color" value="{{ tmdqc_input_color }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-input_background">{{ entry_input_background }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-input_background" name="tmdqc_input_background" value="{{ tmdqc_input_background }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-input_border">{{ entry_input_border }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-input_border" name="tmdqc_input_border" value="{{ tmdqc_input_border }}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input-label_color">{{ entry_label_color }}</label>
+						<div class="col-sm-5">
+								<input type="text" class="form-control color-picker" id="input-label_color" name="tmdqc_label_color" value="{{ tmdqc_label_color }}" />
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<div class="tab-pane" id="tab-title">
+				<fieldset>
+					<legend>{{ text_heading_title }}</legend>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-heading-title">{{ entry_heading_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+								
+									{% if tmdqc_title.heading_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[heading_title][{{ language.language_id }}]" value="{{ tmdqc_title.heading_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[heading_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>{{ text_cart_title }}</legend>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-cart-title">{{ entry_cart_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.cart_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[cart_title][{{ language.language_id }}]" value="{{ tmdqc_title.cart_title[language.language_id ]}}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[cart_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+							</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>{{ text_account_type }}</legend>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-checkout-option-title">{{ entry_checkout_option_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.chekout_option_title[language.language_id ]is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[chekout_option_title][{{ language.language_id }}]" value="{{ tmdqc_title.chekout_option_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[chekout_option_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-login-title">{{ entry_customer_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.custmer_title[language.language_id ]is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[custmer_title][{{ language.language_id }}]" value="{{ tmdqc_title.custmer_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[custmer_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-login-title">{{ entry_login_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.login_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[login_title][{{ language.language_id }}]" value="{{ tmdqc_title.login_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[login_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-register-title">{{ entry_register_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.register_title[language.language_id]is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[register_title][{{ language.language_id }}]" value="{{ tmdqc_title.register_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[register_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-guest-title">{{ entry_guest_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.guest_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[guest_title][{{ language.language_id }}]" value="{{ tmdqc_title.guest_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[guest_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-guest-title">{{ entry_personal_detail }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.personal_detail_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[personal_detail_title][{{ language.language_id }}]" value="{{ tmdqc_title.personal_detail_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[personal_detail_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-guest-title">{{ entry_afterlogincustomer }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.afterlogincustomer[language.language_id]is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[afterlogincustomer][{{ language.language_id }}]" value="{{ tmdqc_title.afterlogincustomer[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[afterlogincustomer][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-guest-title">{{ entry_selectaddress }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.selectaddress[language.language_id]is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[selectaddress][{{ language.language_id }}]" value="{{ tmdqc_title.selectaddress[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[selectaddress][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+								
+							</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>{{ text_delivery_details_title }}</legend>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-cart-title">{{ entry_delivery_details_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.delivery_details_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[delivery_details_title][{{ language.language_id }}]" value="{{ tmdqc_title.delivery_details_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[delivery_details_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+							</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>{{ text_delivery_method_title }}</legend>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-cart-title">{{ entry_delivery_method_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.delivery_method_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[delivery_method_title][{{ language.language_id }}]" value="{{ tmdqc_title.delivery_method_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[delivery_method_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+							</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>{{ text_payment_method_title }}</legend>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-cart-title">{{ entry_payment_method_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.payment_method_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[payment_method_title][{{ language.language_id }}]" value="{{ tmdqc_title.payment_method_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[payment_method_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>{{ text_button_title }}</legend>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-login-title">{{ entry_login_button_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.login_button_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[login_button_title][{{ language.language_id }}]" value="{{ tmdqc_title.login_button_title[language.language_id ] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[login_button_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-shopping-title">{{ entry_continue_shopping_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.continue_shopping_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[continue_shopping_title][{{ language.language_id }}]" value="{{ tmdqc_title.continue_shopping_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[continue_shopping_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+							</div>
+					</div>
+					<div class="form-group">
+							<label class="col-sm-2 control-label" for="input-order-title">{{ entry_order_title }}</label>
+							<div class="col-sm-10">
+								{% for language in languages %}
+									{% if tmdqc_title.order_title[language.language_id] is not empty  %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[order_title][{{ language.language_id }}]" value="{{ tmdqc_title.order_title[language.language_id] }}" />
+									{% else %}
+									<img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> <input  src="" class="form-control" type="text" name="tmdqc_title[order_title][{{ language.language_id }}]" value="" />
+									{% endif %}
+								{% endfor %}
+								
+							</div>
+					</div>
+				</fieldset>
+			</div>
+			
+		</div>
+	 </form>
+  </div>
+ </div>
+</div>
+</div>
+<script type="text/javascript"><!--
+$('select[name=\'tmdqc_country_id\']').on('change', function() {
+	$.ajax({
+		url: 'index.php?route=localisation/country/country&user_token={{ user_token }}&country_id=' + this.value,
+		dataType: 'json',
+		beforeSend: function() {
+			$('select[name=\'tmdqc_country_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+		},
+		complete: function() {
+			$('.fa-spin').remove();
+		},
+		success: function(json) {
+			html = '<option value="">{{ text_select }}</option>';
+
+			if (json['zone'] && json['zone'] != '') {
+				for (i = 0; i < json['zone'].length; i++) {
+          			html += '<option value="' + json['zone'][i]['zone_id'] + '"';
+
+					if (json['zone'][i]['zone_id'] == '{{ tmdqc_zone_id }}') {
+            			html += ' selected="selected"';
+					}
+
+					html += '>' + json['zone'][i]['name'] + '</option>';
+				}
+			} else {
+				html += '<option value="0" selected="selected">{{ text_none }}</option>';
+			}
+
+			$('select[name=\'tmdqc_zone_id\']').html(html);
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$('select[name=\'tmdqc_country_id\']').trigger('change');
+//--></script>
+
+<script src="view/javascript/colorbox/jquery.minicolors.js"></script>
+<link rel="stylesheet" href="view/javascript/colorbox/jquery.minicolors.css">
+<script type="text/javascript"><!--
+$(document).ready( function() {
+	$('.color-picker').each( function() {
+		$(this).minicolors({
+			control: $(this).attr('data-control') || 'hue',
+			defaultValue: $(this).attr('data-defaultValue') || '',
+			inline: $(this).attr('data-inline') === 'true',
+			letterCase: $(this).attr('data-letterCase') || 'lowercase',
+			opacity: $(this).attr('data-opacity'),
+			position: $(this).attr('data-position') || 'bottom left',
+			change: function(hex, opacity) {
+				if( !hex ) return;
+				if( opacity ) hex += ', ' + opacity;
+				try {
+					console.log(hex);
+				} catch(e) {}
+			},
+			theme: 'bootstrap'
+		});
+	});
+});
+//--></script>
+
+<style>
+	.minicolors-theme-bootstrap .minicolors-input{width:100%; height:35px;}
+</style>
+{{ footer }}

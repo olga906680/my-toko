@@ -1,0 +1,59 @@
+input[type=radio],
+input[type=checkbox] {
+margin-bottom: 0;
+height:20px;
+width:20px;
+}
+.checkator_source {
+position: relative;
+z-index: 2;
+display: block;
+}
+.checkator_holder { 
+display: inline-block;
+position: relative;
+
+}
+.checkator { 
+border: 2px solid #abadb3;
+background-color: #fff;
+display: block;
+position: absolute;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+z-index: 1;
+}
+.checkator_source:checked+.checkator:after { 
+background-color: #000;
+display: block;
+content: ' ';
+top: 20%;
+right: 20%;
+bottom: 20%;
+left: 20%;
+position: absolute;
+}
+.checkator_source:focus+.checkator {
+border: 2px solid #cc0;
+}
+.checkator_source:hover+.checkator {
+background-color: #def;
+border: 2px solid #79b;
+}
+.checkator.radio {
+border-radius: 50%;
+}
+.checkator.radio:after {
+border-radius: 50%;
+}
+.checkator.checkbox { 
+border: 2px solid #abadb3;
+}
+
+.checkator_holder  .checkbox, .radio{margin:0px!important;width:20px!important;height:20px!important;float:left!important;}
+#quick-checkout .radio2 {width: 20px;height: 20px;}
+#quick-checkout .checkbox2 {width: 25px;height: 25px;}
+
+.checkator_holder {margin:0px!important;width:auto!important;height:20px!important;float:left!important;}
